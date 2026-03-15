@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Building2, Search, Star, MapPin, Truck, FileSignature } from 'lucide-react';
 import axios from 'axios';
+import API_URL from '../config';
 
 export default function Suppliers() {
   const [suppliers, setSuppliers] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('http://localhost:5180/api/suppliers/contracts')
+    axios.get(`${API_URL}/api/suppliers/contracts`)
       .then(res => {
          setSuppliers(res.data);
          setLoading(false);

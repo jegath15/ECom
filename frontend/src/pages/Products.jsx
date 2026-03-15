@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Search, Plus, Home as HomeIcon, ChevronRight, Package, Truck, ShieldCheck, Zap, Layers, Filter } from 'lucide-react';
 import axios from 'axios';
+import API_URL from '../config';
 import { Link, useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '../context/CartContext';

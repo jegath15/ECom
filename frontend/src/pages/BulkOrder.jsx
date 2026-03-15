@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Trash2, ArrowRight, PackageOpen, LayoutList } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import API_URL from '../config';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 

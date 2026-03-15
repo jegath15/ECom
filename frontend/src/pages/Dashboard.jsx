@@ -4,6 +4,7 @@ import { Wallet, Receipt, Package, ArrowUpRight, TrendingUp, Clock, FileText, Us
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, BarChart, Bar, Legend } from 'recharts';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
+import API_URL from '../config';
 
 export default function Dashboard() {
   const { user } = useAuth();
@@ -35,19 +36,19 @@ export default function Dashboard() {
       setLoading(true);
       
       // Resolve Business ID first
-      const businessRes = await axios.get(`http://localhost:5180/api/business/${user.userId}`);
+      const businessRes = await axios.get(`${API_URL}/api/business/${user.userId}`);
       const bid = businessRes.data.businessId;
       setBusinessProfile(businessRes.data);
       setCurrentBid(bid);
 
       // Run remaining API calls concurrently with the resolved BID
       const [walletRes, txRes, invoiceRes, orderRes, supplierRes, inventoryRes] = await Promise.all([
-         axios.get(`http://localhost:5180/api/wallet/${bid}`).catch(() => ({ data: { balance: 0.00 } })),
-         axios.get(`http://localhost:5180/api/wallet/${bid}/transactions`).catch(() => ({ data: [] })),
-         axios.get(`http://localhost:5180/api/invoices/business/${bid}`).catch(() => ({ data: [] })),
-         axios.get(`http://localhost:5180/api/orders/business/${bid}`).catch(() => ({ data: [] })),
-         axios.get(`http://localhost:5180/api/suppliers/contracts`).catch(() => ({ data: [] })),
-         axios.get(`http://localhost:5180/api/inventory`).catch(() => ({ data: [] }))
+         axios.get(`${API_URL}/api/wallet/${bid}`).catch(() => ({ data: { balance: 0.00 } })),
+         axios.get(`${API_URL}/api/wallet/${bid}/transactions`).catch(() => ({ data: [] })),
+         axios.get(`${API_URL}/api/invoices/business/${bid}`).catch(() => ({ data: [] })),
+         axios.get(`${API_URL}/api/orders/business/${bid}`).catch(() => ({ data: [] })),
+         axios.get(`${API_URL}/api/suppliers/contracts`).catch(() => ({ data: [] })),
+         axios.get(`${API_URL}/api/inventory`).catch(() => ({ data: [] }))
       ]);
 
       setWallet(walletRes.data);
@@ -81,14 +82,14 @@ export default function Dashboard() {
     if (!currentBid) return;
     try {
        setActionLoading(true);
-       const res = await axios.post('http://localhost:5180/api/wallet/add-money', {
+       const res = await axios.post(`${API_URL}/api/wallet/add-money`, {
           BusinessId: currentBid,
           Amount: 500.00
        });
        setWallet({ balance: res.data.balance });
        showToast("Successfully topped up ₹500.00 via Bank Transfer protocol.");
        // Refresh transactions
-       const txRes = await axios.get(`http://localhost:5180/api/wallet/${currentBid}/transactions`);
+       const txRes = await axios.get(`${API_URL}/api/wallet/${currentBid}/transactions`);
        setWalletTransactions(txRes.data);
     } catch(err) {
        console.error("Top-up failed", err);
@@ -102,7 +103,7 @@ export default function Dashboard() {
     if (!currentBid) return;
     try {
       setActionLoading(true);
-      await axios.post(`http://localhost:5180/api/invoices/${invoiceId}/pay/${currentBid}`);
+      await axios.post(`${API_URL}/api/invoices/${invoiceId}/pay/${currentBid}`);
       showToast("✅ Invoice successfully paid from Business Wallet!");
       await fetchDashboardData();
     } catch (err) {
@@ -121,7 +122,7 @@ export default function Dashboard() {
   const handleConvertQuotation = async (orderId) => {
     try {
       setActionLoading(true);
-      await axios.patch(`http://localhost:5180/api/orders/${orderId}/convert`);
+      await axios.patch(`${API_URL}/api/orders/${orderId}/convert`);
       showToast("✅ Quotation successfully converted to a Procurement Order!");
       await fetchDashboardData();
       setActiveTab('orders');

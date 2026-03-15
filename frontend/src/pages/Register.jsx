@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Mail, Lock, Building, Phone } from 'lucide-react';
 import axios from 'axios';
+import API_URL from '../config';
 
 export default function Register() {
   const [formData, setFormData] = useState({
