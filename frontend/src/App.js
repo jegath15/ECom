@@ -4,7 +4,6 @@ import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 import MainLayout from './layouts/MainLayout';
 import PageWrapper from './components/PageWrapper';
-import { AnimatePresence } from 'framer-motion';
 import Home from './pages/Home';
 import Products from './pages/Products';
 import Login from './pages/Login';

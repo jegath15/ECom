@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Package, Truck, Search, MapPin, CheckCircle2 } from 'lucide-react';
+import { Package, Truck, Search, MapPin } from 'lucide-react';
 
 export default function OrderTracking() {
   const [orderId, setOrderId] = useState('');
