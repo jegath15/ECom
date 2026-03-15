@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight, Clock, UserPlus, Building2, FileKey2, AlertCircle, Plus, PieChart as PieIcon } from 'lucide-react';
+import { ArrowUpRight, Clock, UserPlus, Building2, FileKey2, CheckCircle2, AlertCircle, Plus, PieChart as PieIcon } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } from 'recharts';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
