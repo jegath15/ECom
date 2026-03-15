@@ -26,7 +26,7 @@ export default function Register() {
     setError('');
     
     try {
-      await axios.post('http://localhost:5180/api/auth/register', {
+      await axios.post(`${API_URL}/api/auth/register`, {
         Name: formData.businessName,
         Email: formData.email,
         Password: formData.password,

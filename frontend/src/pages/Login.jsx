@@ -19,7 +19,7 @@ export default function Login() {
     
     try {
       // Assuming your C# auth service expects Email/Password
-      const res = await axios.post('http://localhost:5180/api/auth/login', {
+      const res = await axios.post(`${API_URL}/api/auth/login`, {
         email,
         password
       });

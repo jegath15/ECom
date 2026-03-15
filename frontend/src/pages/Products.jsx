@@ -124,8 +124,8 @@ export default function Products() {
     setLoading(true);
     // Fetch products and categories in parallel
     Promise.all([
-      axios.get('http://localhost:5180/api/product'),
-      axios.get('http://localhost:5180/api/product/categories')
+      axios.get(`${API_URL}/api/product`),
+      axios.get(`${API_URL}/api/product/categories`)
     ])
     .then(([prodRes, catRes]) => {
        setProducts(prodRes.data);
