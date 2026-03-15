@@ -30,7 +30,7 @@ export default function MainLayout() {
           ].map((label, idx) => (
             <Link 
               key={idx} 
-              to={label === 'ABOUT US' ? '/about' : label === 'MY ACCOUNT' ? '/dashboard' : label === 'SHOP' ? '/products' : '/bulk-order'}
+              to={label === 'ABOUT US' ? '/about' : label === 'MY ACCOUNT' ? '/dashboard' : label === 'SHOP' ? '/products' : label === 'CART' ? '/cart' : label === 'WISHLIST' ? '/wishlist' : label === 'ORDER TRACKING' ? '/orders' : '/bulk-order'}
               className="text-[11px] font-black text-gray-400 hover:text-gray-900 uppercase tracking-[0.25em] transition-all shrink-0"
             >
               {label}
