@@ -32,6 +32,9 @@ namespace ChefSupply.API.Models
         [Column("base_price")]
         public decimal? BasePrice { get; set; }
 
+        [Column("image_url")]
+        public string? ImageUrl { get; set; }
+
         [Column("created_at")]
         public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;
     }

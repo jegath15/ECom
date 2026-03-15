@@ -16,7 +16,7 @@ const ProductCard = ({ product, onAdd }) => (
     className="bg-white border border-gray-100 rounded-[2.5rem] overflow-hidden hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] transition-all group flex flex-col h-full"
   >
     <div className="h-64 bg-[#f8f9fa] flex items-center justify-center relative overflow-hidden group">
-      <img src={`https://placehold.co/400x300/F9FAFB/111827?text=${encodeURIComponent(product.productName)}`} alt={product.productName} className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110 opacity-90" />
+      <img src={product.imageUrl || `https://placehold.co/400x300/F9FAFB/111827?text=${encodeURIComponent(product.productName)}`} alt={product.productName} className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110 opacity-90" />
       
       <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent pointer-events-none" />
       

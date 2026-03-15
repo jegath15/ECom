@@ -12,14 +12,8 @@ namespace ChefSupply.API.Data
                 // Ensure Database Created
                 context.Database.EnsureCreated();
 
-                // Manual check for Inventories table
                 context.Database.ExecuteSqlRaw(@"
-                    CREATE TABLE IF NOT EXISTS inventories (
-                        inventory_id SERIAL PRIMARY KEY,
-                        product_id UUID REFERENCES products(product_id),
-                        available_quantity INTEGER,
-                        updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-                    );
+                    ALTER TABLE products ADD COLUMN IF NOT EXISTS image_url TEXT;
                 ");
 
                 // Check if already seeded & not forced
@@ -90,16 +84,16 @@ namespace ChefSupply.API.Data
             var random = new Random();
             var products = new List<Product>();
 
-            var categoryData = new Dictionary<string, (string[] Names, string[] Descs, string Unit, decimal PriceRange)>
+            var categoryData = new Dictionary<string, (string[] Names, string[] Descs, string Unit, decimal PriceRange, string Image)>
             {
-                { "Vegetables", (new[] { "Organic Hass Avocados", "Vine-Ripened Roma Tomatoes", "Heirloom Carrots", "Hydroponic Butter Lettuce", "Premium Red Onions" }, new[] { "Farm Fresh", "Organic Choice", "Hydroponic" }, "10kg Box", 45m) },
-                { "Meat & Poultry", (new[] { "Premium Ribeye Steak", "Free-Range Chicken Breast", "Angus Ground Beef", "Smoked Pork Belly" }, new[] { "Premium Choice", "Grass Fed", "Free Range" }, "5kg Case", 180m) },
-                { "Dairy", (new[] { "Whole Grass-Fed Milk", "Salted Creamery Butter", "Aged White Cheddar", "Greek Style Yogurt" }, new[] { "Pasteurized", "Cultured", "Double Cream" }, "Case", 60m) },
-                { "Seafood", (new[] { "Atlantic Salmon Fillet", "Jumbo Tiger Prawns", "Wild Sea Bass", "Lobster Tails" }, new[] { "Wild Caught", "Sustainable", "Flash Frozen" }, "2kg Box", 140m) },
-                { "Kitchen Equipment", (new[] { "Industrial Vitamix Blender", "Stainless Steel Prep Table", "High-Power Induction Hob" }, new[] { "Heavy Duty", "Industrial Grade", "Precision" }, "Unit", 1200m) },
-                { "Disposables", (new[] { "Heavy Duty Paper Towels", "Powder-Free Vinyl Gloves", "Eco-Friendly Takeaway Boxes" }, new[] { "Biodegradable", "Recycled", "Powder Free" }, "Bulk Case", 85m) },
-                { "Cooking Utensils", (new[] { "8 inch Chef's Knife", "12 inch Sauté Pan", "20L Stock Pot" }, new[] { "Forged Steel", "Non-Stick", "Stainless" }, "Unit", 75m) },
-                { "Cleaning Supplies", (new[] { "Kitchen Floor Degreaser", "Industrial Sanitizing Wipes", "Concentrated Dish Soap" }, new[] { "Industrial Strength", "Food Safe", "Concentrated" }, "5L Bottle", 55m) }
+                { "Vegetables", (new[] { "Organic Hass Avocados", "Vine-Ripened Roma Tomatoes", "Heirloom Carrots", "Hydroponic Butter Lettuce", "Premium Red Onions" }, new[] { "Farm Fresh", "Organic Choice", "Hydroponic" }, "10kg Box", 45m, "/assets/products/vegetables.png") },
+                { "Meat & Poultry", (new[] { "Premium Ribeye Steak", "Free-Range Chicken Breast", "Angus Ground Beef", "Smoked Pork Belly" }, new[] { "Premium Choice", "Grass Fed", "Free Range" }, "5kg Case", 180m, "/assets/products/meat.png") },
+                { "Dairy", (new[] { "Whole Grass-Fed Milk", "Salted Creamery Butter", "Aged White Cheddar", "Greek Style Yogurt" }, new[] { "Pasteurized", "Cultured", "Double Cream" }, "Case", 60m, "/assets/products/dairy.png") },
+                { "Seafood", (new[] { "Atlantic Salmon Fillet", "Jumbo Tiger Prawns", "Wild Sea Bass", "Lobster Tails" }, new[] { "Wild Caught", "Sustainable", "Flash Frozen" }, "2kg Box", 140m, "/assets/products/seafood.png") },
+                { "Kitchen Equipment", (new[] { "Industrial Vitamix Blender", "Stainless Steel Prep Table", "High-Power Induction Hob" }, new[] { "Heavy Duty", "Industrial Grade", "Precision" }, "Unit", 1200m, "/assets/products/equipment.png") },
+                { "Disposables", (new[] { "Heavy Duty Paper Towels", "Powder-Free Vinyl Gloves", "Eco-Friendly Takeaway Boxes" }, new[] { "Biodegradable", "Recycled", "Powder Free" }, "Bulk Case", 85m, "/assets/products/disposables.png") },
+                { "Cooking Utensils", (new[] { "8 inch Chef's Knife", "12 inch Sauté Pan", "20L Stock Pot" }, new[] { "Forged Steel", "Non-Stick", "Stainless" }, "Unit", 75m, "/assets/products/utensils.png") },
+                { "Cleaning Supplies", (new[] { "Kitchen Floor Degreaser", "Industrial Sanitizing Wipes", "Concentrated Dish Soap" }, new[] { "Industrial Strength", "Food Safe", "Concentrated" }, "5L Bottle", 55m, "/assets/products/cleaning.png") }
             };
 
             foreach (var cat in context.Categories.ToList())
@@ -121,6 +115,7 @@ namespace ChefSupply.API.Data
                         SupplierId = suppliers[random.Next(suppliers.Count)].SupplierId,
                         BasePrice = Math.Round(price, 2),
                         Unit = info.Unit,
+                        ImageUrl = info.Image,
                         Description = $"{prefix} {baseName} sourced for high-volume B2B operations. Verified quality standards for hospitality nodes."
                     };
                     products.Add(p);

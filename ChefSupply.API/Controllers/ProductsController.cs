@@ -30,6 +30,7 @@ namespace ChefSupply.API.Controllers
                 p.Description,
                 p.Unit,
                 p.BasePrice,
+                p.ImageUrl,
                 p.CategoryId,
                 CategoryName = categories.FirstOrDefault(c => c.CategoryId == p.CategoryId)?.CategoryName,
                 p.SupplierId,

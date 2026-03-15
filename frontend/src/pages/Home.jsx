@@ -40,7 +40,7 @@ const ProductCard = ({ product }) => (
   >
     <div className="aspect-square bg-gray-50 rounded-2xl mb-6 overflow-hidden relative">
       <img 
-        src={`https://placehold.co/400x300/F9FAFB/111827?text=${encodeURIComponent(product.productName)}`} 
+        src={product.imageUrl || `https://placehold.co/400x300/F9FAFB/111827?text=${encodeURIComponent(product.productName)}`} 
         alt={product.productName} 
         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
       />
