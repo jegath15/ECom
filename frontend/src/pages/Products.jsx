@@ -37,40 +37,30 @@ const ProductCard = ({ product, onAdd }) => (
          </motion.div>
       </div>
 
-      <div className="absolute bottom-6 left-6 flex items-center gap-2">
-        <span className="bg-gray-900/90 backdrop-blur-sm text-white text-[9px] font-black uppercase tracking-[0.2em] px-3 py-1.5 rounded-lg shadow-2xl border border-white/10">
-          ID: {product.productId.toString().slice(0, 8).toUpperCase()}
-        </span>
-      </div>
     </div>
 
     <div className="p-10 flex flex-col flex-1 relative">
-      <div className="flex items-start justify-between mb-6">
-        <div className="flex-1">
-          <div className="flex items-center gap-2 mb-3">
-             <span className="text-[10px] font-black text-[var(--brand-yellow)] uppercase tracking-[0.2em]">{product.categoryName || 'General Supply'}</span>
-             <div className="w-1 h-1 rounded-full bg-gray-200" />
-             <ShieldCheck className="w-3 h-3 text-gray-400" />
-          </div>
-          <h3 className="text-base font-black text-gray-900 mb-2 leading-tight group-hover:text-gray-700 transition-colors uppercase italic line-clamp-2 min-h-[3rem]">{product.productName}</h3>
-          <p className="text-gray-500 text-sm leading-relaxed line-clamp-2 italic font-medium">{product.description}</p>
+      <div className="flex flex-col flex-1">
+        <div className="flex items-center gap-2 mb-4">
+           <span className="text-[10px] font-black text-[var(--brand-yellow)] uppercase tracking-[0.2em]">{product.categoryName || 'General Supply'}</span>
+           <div className="w-1 h-1 rounded-full bg-gray-200" />
+           <ShieldCheck className="w-3 h-3 text-gray-400" />
         </div>
+        <h3 className="text-lg font-black text-gray-900 mb-4 leading-tight group-hover:text-gray-700 transition-colors uppercase italic">{product.productName}</h3>
+        <p className="text-gray-500 text-xs leading-relaxed italic font-medium mb-8 line-clamp-3">{product.description}</p>
       </div>
       
-      <div className="mb-8 grid grid-cols-2 gap-4">
-         <div className="bg-gray-50/80 rounded-2xl p-4 border border-gray-100">
-            <p className="text-[9px] text-gray-400 font-black uppercase tracking-widest mb-1.5 flex items-center gap-2">
-               <Layers className="w-3 h-3" /> Availability
-            </p>
-            <p className={`text-sm font-black ${product.availableQuantity > 50 ? 'text-gray-900' : 'text-red-600'}`}>
-               {product.availableQuantity} <span className="text-[10px] uppercase">{product.unit}s</span>
-            </p>
+      <div className="mb-10 grid grid-cols-2 gap-5">
+         <div className="bg-gray-50/80 rounded-3xl p-6 border border-gray-100 flex flex-col justify-between min-h-[110px]">
+            <span className="text-[10px] text-gray-400 font-black uppercase tracking-widest">Availability</span>
+            <div className={`flex flex-col mt-2 ${product.availableQuantity > 50 ? 'text-gray-900' : 'text-red-600'}`}>
+               <span className="text-2xl font-black leading-none">{product.availableQuantity}</span>
+               <span className="text-[10px] font-bold uppercase tracking-widest mt-1">{product.unit}s</span>
+            </div>
          </div>
-         <div className="bg-gray-50/80 rounded-2xl p-4 border border-gray-100">
-            <p className="text-[9px] text-gray-400 font-black uppercase tracking-widest mb-1.5 flex items-center gap-2">
-               <Truck className="w-3 h-3" /> Delivery
-            </p>
-            <p className="text-sm font-black text-gray-900">Next Business Day</p>
+         <div className="bg-gray-50/80 rounded-3xl p-6 border border-gray-100 flex flex-col justify-between min-h-[110px]">
+            <span className="text-[10px] text-gray-400 font-black uppercase tracking-widest">Delivery</span>
+            <span className="text-sm font-black text-gray-900 leading-tight mt-auto">Next Business Day</span>
          </div>
       </div>
 
