@@ -13,6 +13,30 @@ export default function MainLayout() {
         is now live with 15% discount on all seasonal perishables. 
         <Link to="/products" className="ml-4 underline hover:text-[var(--brand-yellow)] transition-colors">Order Now</Link>
       </div>
+
+      {/* Utility Navigation Bar (ZeeStore Inspired) */}
+      <nav className="bg-white border-b border-gray-100 py-3 hidden md:block relative z-40">
+        <div className="max-w-[1400px] mx-auto px-6 flex justify-center items-center gap-12">
+          {[
+            { label: 'About Us', path: '/about' },
+            { label: 'My Account', path: '/dashboard' },
+            { label: 'Cart', path: '/bulk-order' },
+            { label: 'Wishlist', path: '/wishlist' },
+            { label: 'Order Tracking', path: '/orders' },
+            { label: 'Checkout', path: '/bulk-order' },
+            { label: 'Shop', path: '/products' }
+          ].map((link, idx) => (
+            <Link 
+              key={idx} 
+              to={link.path} 
+              className="text-[11px] font-black text-gray-400 hover:text-gray-900 uppercase tracking-[0.25em] transition-all"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
+      </nav>
+
       <Header />
       
       <main className="flex-1 w-full max-w-[1400px] mx-auto px-6">
