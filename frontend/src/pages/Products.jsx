@@ -52,7 +52,7 @@ const ProductCard = ({ product, onAdd }) => (
              <div className="w-1 h-1 rounded-full bg-gray-200" />
              <ShieldCheck className="w-3 h-3 text-gray-400" />
           </div>
-          <h3 className="text-xl font-black text-gray-900 mb-3 leading-tight group-hover:text-gray-700 transition-colors uppercase italic">{product.productName}</h3>
+          <h3 className="text-base font-black text-gray-900 mb-2 leading-tight group-hover:text-gray-700 transition-colors uppercase italic line-clamp-2 min-h-[3rem]">{product.productName}</h3>
           <p className="text-gray-500 text-sm leading-relaxed line-clamp-2 italic font-medium">{product.description}</p>
         </div>
       </div>
@@ -210,7 +210,8 @@ export default function Products() {
                 <h3 className="font-black text-sm uppercase tracking-[0.3em] text-gray-900 italic">Core Verticals</h3>
                 <Filter className="w-4 h-4 text-gray-300" />
               </div>
-              <ul className="space-y-4">
+              <div className="max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
+                <ul className="space-y-4">
                 {categories.map((cat, i) => (
                   <li key={cat.categoryId}>
                     <button 
@@ -232,6 +233,7 @@ export default function Products() {
                 ))}
               </ul>
             </div>
+          </div>
 
             <div className="p-8 bg-gray-900 rounded-[2.5rem] text-white overflow-hidden relative group">
                <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--brand-yellow)] blur-[100px] opacity-20 transition-all duration-700 group-hover:scale-150" />
