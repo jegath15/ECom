@@ -39,7 +39,7 @@ export default function BulkOrder() {
        // Resolve Business ID if not already resolved
        let bid = currentBid;
        if (!bid) {
-         const businessRes = await axios.get(`http://localhost:5180/api/business/${user.userId}`);
+         const businessRes = await axios.get(`${API_URL}/api/business/${user.userId}`);
          bid = businessRes.data.businessId;
          setCurrentBid(bid);
        }
@@ -57,7 +57,7 @@ export default function BulkOrder() {
           }))
        };
        
-       await axios.post('http://localhost:5180/api/orders', orderPayload);
+       await axios.post(`${API_URL}/api/orders`, orderPayload);
        
        if (isNegotiation) {
          showToast("🤝 Negotiation request transmitted. A procurement officer will contact you shortly.");
