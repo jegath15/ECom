@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { Search, HeadphonesIcon, Truck, ShoppingBag, UtensilsCrossed, Package, RefreshCw, BarChart, Soup } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Search, HeadphonesIcon, Truck, ShoppingBag, UtensilsCrossed, Package, RefreshCw, BarChart, Soup, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useNavigate, Link } from 'react-router-dom';
-
+import axios from 'axios';
+import API_URL from '../config';
 
 const CategoryItem = ({ icon: Icon, title, onClick }) => (
   <motion.div 
@@ -32,9 +33,51 @@ const FeatureCard = ({ icon: Icon, title }) => (
   </div>
 );
 
+const ProductCard = ({ product }) => (
+  <motion.div 
+    whileHover={{ y: -10 }}
+    className="bg-white rounded-[2rem] p-6 border border-gray-100 shadow-sm hover:shadow-2xl transition-all group"
+  >
+    <div className="aspect-square bg-gray-50 rounded-2xl mb-6 overflow-hidden relative">
+      <img 
+        src={`https://placehold.co/400x300/F9FAFB/111827?text=${encodeURIComponent(product.productName)}`} 
+        alt={product.productName} 
+        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+      />
+      <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest text-gray-900 border border-gray-100">
+        ₹{product.price}
+      </div>
+    </div>
+    <h4 className="font-black text-gray-900 mb-2 truncate uppercase tracking-tight">{product.productName}</h4>
+    <p className="text-gray-400 text-[10px] font-bold mb-6 uppercase tracking-widest">{product.categoryName}</p>
+    <Link 
+      to={`/products?search=${encodeURIComponent(product.productName)}`} 
+      className="w-full py-4 bg-gray-50 hover:bg-gray-900 hover:text-white rounded-xl text-[10px] font-black uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-2"
+    >
+      Procure SKU <ShoppingBag className="w-3 h-3" />
+    </Link>
+  </motion.div>
+);
+
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState('');
+  const [featuredProducts, setFeaturedProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await axios.get(`${API_URL}/api/product`);
+        setFeaturedProducts(res.data.slice(0, 8)); // Showcase top 8
+      } catch (err) {
+        console.error("Failed to fetch featured products", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProducts();
+  }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -155,6 +198,33 @@ export default function Home() {
                <CategoryItem icon={Package} title="Cleaning Supplies" onClick={() => navigate('/products?search=Cleaning%20Supplies')} />
             </div>
          </motion.div>
+      </section>
+
+      {/* Featured Products Section (ZeeStore Style) */}
+      <section className="space-y-16">
+        <div className="flex items-end justify-between px-6">
+          <div>
+            <h2 className="text-4xl lg:text-5xl font-black text-gray-900 tracking-tighter mb-4">Top Procurement Items</h2>
+            <p className="text-gray-400 font-bold text-sm">Real-time enterprise inventory across all distribution nodes.</p>
+          </div>
+          <Link to="/products" className="flex items-center gap-3 font-black uppercase tracking-widest text-xs text-gray-900 hover:gap-5 transition-all">
+            Explore Catalog <ArrowRight className="w-4 h-4 text-[var(--brand-yellow)]" />
+          </Link>
+        </div>
+
+        {loading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 px-6">
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="aspect-square bg-gray-100 rounded-[2rem] animate-pulse"></div>
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 px-6">
+            {featuredProducts.map((product) => (
+              <ProductCard key={product.productId} product={product} />
+            ))}
+          </div>
+        )}
       </section>
 
       {/* Why Choose Us */}
