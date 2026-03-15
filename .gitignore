@@ -1,0 +1,42 @@
+# .gitignore for ChefSupply (ASP.NET Core + React)
+
+# Dotnet
+bin/
+obj/
+*.user
+*.userosscache
+*.sln.docstates
+.vs/
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnp*
+.pnp.js
+
+# Production / Build
+build/
+dist/
+publish/
+
+# Environment / Sensitive
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.pem
+*.key
+
+# AppSettings (Optional: Ignore if you want to keep cloud keys out of GitHub)
+# appsettings.json
+# appsettings.Development.json
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.bak
+*.tmp
