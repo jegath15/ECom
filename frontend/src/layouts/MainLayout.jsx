@@ -14,28 +14,29 @@ export default function MainLayout() {
         <Link to="/products" className="ml-4 underline hover:text-[var(--brand-yellow)] transition-colors">Order Now</Link>
       </div>
 
-      {/* Utility Navigation Bar (ZeeStore Inspired) */}
-      <nav className="bg-white border-b border-gray-100 py-3 hidden md:block relative z-40">
-        <div className="max-w-[1400px] mx-auto px-6 flex justify-center items-center gap-12">
+      {/* Utility Marquee Bar (ZeeStore Inspired) */}
+      <div className="bg-white border-b border-gray-100 py-3 overflow-hidden group">
+        <motion.div 
+          animate={{ x: [0, -1000] }}
+          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+          className="flex whitespace-nowrap gap-12 px-6"
+        >
           {[
-            { label: 'About Us', path: '/about' },
-            { label: 'My Account', path: '/dashboard' },
-            { label: 'Cart', path: '/bulk-order' },
-            { label: 'Wishlist', path: '/wishlist' },
-            { label: 'Order Tracking', path: '/orders' },
-            { label: 'Checkout', path: '/bulk-order' },
-            { label: 'Shop', path: '/products' }
-          ].map((link, idx) => (
+            "ABOUT US", "MY ACCOUNT", "MY ACCOUNT", "CART", "WISHLIST", 
+            "MY ACCOUNT", "ORDER TRACKING", "CHECKOUT", "CART", "SHOP", "ABOUT US",
+            "ABOUT US", "MY ACCOUNT", "MY ACCOUNT", "CART", "WISHLIST", 
+            "MY ACCOUNT", "ORDER TRACKING", "CHECKOUT", "CART", "SHOP", "ABOUT US"
+          ].map((label, idx) => (
             <Link 
               key={idx} 
-              to={link.path} 
-              className="text-[11px] font-black text-gray-400 hover:text-gray-900 uppercase tracking-[0.25em] transition-all"
+              to={label === 'ABOUT US' ? '/about' : label === 'MY ACCOUNT' ? '/dashboard' : label === 'SHOP' ? '/products' : '/bulk-order'}
+              className="text-[11px] font-black text-gray-400 hover:text-gray-900 uppercase tracking-[0.25em] transition-all shrink-0"
             >
-              {link.label}
+              {label}
             </Link>
           ))}
-        </div>
-      </nav>
+        </motion.div>
+      </div>
 
       <Header />
       
