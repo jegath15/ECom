@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ShieldAlert, RefreshCw, CheckCircle2, AlertCircle, Database } from 'lucide-react';
 import axios from 'axios';
+import API_URL from '../config';
 
 export default function Admin() {
   const [loading, setLoading] = useState(false);
@@ -16,7 +17,7 @@ export default function Admin() {
     setError('');
 
     try {
-      const res = await axios.post('http://localhost:5180/api/admin/reset-data');
+      const res = await axios.post(`${API_URL}/api/admin/reset-data`);
       setStatus(res.data.message);
     } catch (err) {
       setError(err.response?.data?.error || "Failed to reset database. Ensure you are authorized.");
