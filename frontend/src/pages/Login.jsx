@@ -98,7 +98,7 @@ export default function Login() {
                 />
               </div>
               <div className="flex justify-end mt-3">
-                <a href="#" className="text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-gray-900 transition-colors">Emergency Access?</a>
+                <button type="button" onClick={() => alert('Emergency access protocol: Please contact administrator at admin@chefsupply.com')} className="text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-gray-900 transition-colors">Emergency Access?</button>
               </div>
             </div>
 

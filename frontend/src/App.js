@@ -15,12 +15,6 @@ import Suppliers from './pages/Suppliers';
 import Dashboard from './pages/Dashboard';
 import Admin from './pages/Admin';
 
-// Placeholders for unimplemented features
-const Placeholder = ({ title }) => (
-  <div className="flex items-center justify-center h-[60vh] text-2xl font-semibold text-gray-400">
-    {title} Page - Coming Soon
-  </div>
-);
 
 function App() {
   return (

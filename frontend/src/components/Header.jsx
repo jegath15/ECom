@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Search, ShoppingCart, User, LogOut, LayoutDashboard, UtensilsCrossed, ShieldAlert } from 'lucide-react';
+import { ShoppingCart, LogOut, LayoutDashboard, UtensilsCrossed, ShieldAlert } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';

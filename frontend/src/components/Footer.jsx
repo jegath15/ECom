@@ -19,10 +19,10 @@ export default function Footer() {
               The premier B2B marketplace connecting professional kitchens with verified wholesale suppliers globally. Optimized for procurement workflows and bulk distribution.
             </p>
             <div className="flex items-center gap-4 pt-2">
-              <a href="#" className="text-slate-400 hover:text-primary transition-colors"><Twitter className="w-5 h-5" /></a>
-              <a href="#" className="text-slate-400 hover:text-primary transition-colors"><Linkedin className="w-5 h-5" /></a>
-              <a href="#" className="text-slate-400 hover:text-primary transition-colors"><Facebook className="w-5 h-5" /></a>
-              <a href="#" className="text-slate-400 hover:text-primary transition-colors"><Instagram className="w-5 h-5" /></a>
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-primary transition-colors"><Twitter className="w-5 h-5" /></a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-primary transition-colors"><Linkedin className="w-5 h-5" /></a>
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-primary transition-colors"><Facebook className="w-5 h-5" /></a>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-primary transition-colors"><Instagram className="w-5 h-5" /></a>
             </div>
           </div>
 
@@ -40,10 +40,10 @@ export default function Footer() {
           <div>
             <h4 className="text-white font-semibold mb-6">Company</h4>
             <ul className="space-y-3">
-              <li><a href="#" className="text-slate-400 hover:text-primary transition-colors text-sm">About Us</a></li>
-              <li><a href="#" className="text-slate-400 hover:text-primary transition-colors text-sm">Careers</a></li>
-              <li><a href="#" className="text-slate-400 hover:text-primary transition-colors text-sm">Legal & Privacy</a></li>
-              <li><a href="#" className="text-slate-400 hover:text-primary transition-colors text-sm">Terms of Service</a></li>
+              <li><Link to="/about" className="text-slate-400 hover:text-primary transition-colors text-sm">About Us</Link></li>
+              <li><Link to="/careers" className="text-slate-400 hover:text-primary transition-colors text-sm">Careers</Link></li>
+              <li><Link to="/privacy" className="text-slate-400 hover:text-primary transition-colors text-sm">Legal & Privacy</Link></li>
+              <li><Link to="/terms" className="text-slate-400 hover:text-primary transition-colors text-sm">Terms of Service</Link></li>
             </ul>
           </div>
 

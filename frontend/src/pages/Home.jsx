@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Search, ChevronRight, CheckCircle2, HeadphonesIcon, Truck, Tag, ArrowRight, Star, ShoppingBag, UtensilsCrossed, Package, ShieldCheck, Zap, RefreshCw, BarChart, HardHat, Soup } from 'lucide-react';
+import React, { useState } from 'react';
+import { Search, HeadphonesIcon, Truck, ShoppingBag, UtensilsCrossed, Package, RefreshCw, BarChart, Soup } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useNavigate, Link } from 'react-router-dom';
 

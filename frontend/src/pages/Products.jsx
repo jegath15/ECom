@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Plus, Home as HomeIcon, ChevronRight, Package, Truck, ShieldCheck, Zap, Layers, Filter } from 'lucide-react';
+import { Search, Plus, ChevronRight, Package, Truck, ShieldCheck, Zap, Layers, Filter } from 'lucide-react';
 import axios from 'axios';
 import API_URL from '../config';
 import { Link, useSearchParams } from 'react-router-dom';
@@ -225,7 +225,7 @@ export default function Products() {
                       )}
                       <span className={`text-sm font-black italic transition-all ${searchTerm === cat.categoryName ? 'opacity-100' : 'text-gray-500'}`}>{cat.categoryName}</span>
                       <div className={`px-2.5 py-1 rounded-lg text-[10px] font-black transition-all ${searchTerm === cat.categoryName ? 'bg-[var(--brand-yellow)] text-gray-900' : 'bg-white text-gray-400 border border-gray-100'}`}>
-                         {products.filter(p => p.categoryId == cat.categoryId).length}
+                         {products.filter(p => p.categoryId === cat.categoryId).length}
                       </div>
                     </button>
                   </li>

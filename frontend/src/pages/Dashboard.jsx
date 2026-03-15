@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Wallet, Receipt, Package, ArrowUpRight, TrendingUp, Clock, FileText, UserPlus, Building2, MapPin, FileSignature, FileKey2, Server, CheckCircle2, AlertCircle, Plus, PieChart as PieIcon, BarChart3, LineChart as LineIcon } from 'lucide-react';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, BarChart, Bar, Legend } from 'recharts';
+import { ArrowUpRight, Clock, UserPlus, Building2, FileKey2, AlertCircle, Plus, PieChart as PieIcon } from 'lucide-react';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } from 'recharts';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
 import API_URL from '../config';
@@ -76,7 +76,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     fetchDashboardData();
-  }, [user]);
+  }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleTopUp = async () => {
     if (!currentBid) return;

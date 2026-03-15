@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Building2, Search, Star, MapPin, Truck, FileSignature } from 'lucide-react';
+import { Building2, Search, MapPin, Truck, FileSignature } from 'lucide-react';
 import axios from 'axios';
 import API_URL from '../config';
 
