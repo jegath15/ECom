@@ -30,9 +30,9 @@ publish/
 *.pem
 *.key
 
-# AppSettings (Optional: Ignore if you want to keep cloud keys out of GitHub)
-# appsettings.json
-# appsettings.Development.json
+# AppSettings
+appsettings.Development.json
+appsettings.Local.json
 
 # IDE
 .idea/

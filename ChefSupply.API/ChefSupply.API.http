@@ -1,0 +1,6 @@
+@ChefSupply.API_HostAddress = http://localhost:5180
+
+GET {{ChefSupply.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

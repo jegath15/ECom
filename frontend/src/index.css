@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-primary: #F9FAFB;
+    --bg-secondary: #F3F4F6;
+    --surface: #FFFFFF;
+    --text-primary: #111827;
+    --text-secondary: #4B5563;
+    --brand-yellow: #F2C94C;
+    --brand-dark: #374151;
+    --border-light: #E5E7EB;
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-[var(--brand-yellow)] hover:bg-[#E2B93C] text-[var(--brand-dark)] font-bold px-8 py-3.5 rounded-xl transition-all flex items-center justify-center gap-2 shadow-sm hover:shadow-md;
+  }
+  
+  .btn-secondary {
+    @apply bg-[var(--brand-dark)] hover:bg-[#2D3748] text-white font-bold px-8 py-3.5 rounded-xl transition-all flex items-center justify-center gap-2 shadow-sm hover:shadow-md;
+  }
+
+  .btn-ghost {
+    @apply text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-gray-100 font-bold px-4 py-2 rounded-xl transition-all;
+  }
+
+  .nav-link {
+    @apply text-[var(--text-secondary)] hover:text-[var(--text-primary)] font-bold transition-all border-b-2 border-transparent hover:border-[var(--brand-yellow)] pb-1;
+  }
+
+  .card-premium {
+    @apply bg-white border border-[var(--border-light)] rounded-[2.5rem] shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden;
+  }
+
+  .glass-card {
+    @apply bg-white/70 backdrop-blur-xl border border-white/20 shadow-2xl;
+  }
+
+  .premium-gradient {
+    @apply bg-gradient-to-br from-[#F2C94C] via-[#FFD700] to-[#F2994A];
+  }
+
+  .bg-mesh {
+    background-image: 
+      radial-gradient(at 0% 0%, hsla(45, 84%, 62%, 0.15) 0, transparent 50%), 
+      radial-gradient(at 50% 0%, hsla(11, 80%, 65%, 0.1) 0, transparent 50%), 
+      radial-gradient(at 100% 0%, hsla(210, 80%, 60%, 0.05) 0, transparent 50%);
+  }
+}
+
+/* Custom Webkit Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #aaa;
+}
