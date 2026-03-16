@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Mail, Lock, Building, ShieldCheck, Globe } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
 import API_URL from '../config';
 
@@ -11,6 +13,9 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
+  const { login } = useAuth();
+  const from = location.state?.from?.pathname || "/";
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -23,9 +28,9 @@ export default function Login() {
         email,
         password
       });
-      // Store token (assuming response structure { token: "..." })
-      localStorage.setItem('token', res.data.token);
-      navigate('/');
+      // Store token via context
+      login(res.data.token);
+      navigate(from, { replace: true });
     } catch (err) {
       setError('Invalid credentials. Please try again.');
     } finally {

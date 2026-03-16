@@ -43,7 +43,9 @@ export default function Header() {
           <Link to="/products" className="nav-link">Categories</Link>
           <Link to="/bulk-order" className="nav-link">Bulk Order</Link>
           <Link to="/suppliers" className="nav-link">Suppliers</Link>
-          <Link to="/login" className="nav-link flex items-center gap-1">Login <span className="text-xs font-normal opacity-50">🔑</span></Link>
+          {!isAuthenticated && (
+            <Link to="/login" className="nav-link flex items-center gap-1">Login <span className="text-xs font-normal opacity-50">🔑</span></Link>
+          )}
         </nav>
 
         {/* Actions */}
@@ -76,9 +78,9 @@ export default function Header() {
                 className="flex items-center gap-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-full pl-2 pr-4 py-1.5 transition-colors"
               >
                 <div className="w-8 h-8 bg-[var(--brand-yellow)] rounded-full flex items-center justify-center text-[var(--brand-dark)] font-bold">
-                  {user?.unique_name?.charAt(0)?.toUpperCase() || 'U'}
+                  {(user?.unique_name || user?.name || 'U').charAt(0).toUpperCase()}
                 </div>
-                <span className="text-sm font-bold text-[var(--brand-dark)]">{user?.unique_name || 'My Account'}</span>
+                <span className="text-sm font-bold text-[var(--brand-dark)]">{user?.unique_name || user?.name || 'My Account'}</span>
               </button>
 
               <AnimatePresence>
@@ -89,8 +91,8 @@ export default function Header() {
                     exit={{ opacity: 0, y: 10 }}
                     className="absolute right-0 mt-3 w-56 bg-white border border-gray-100 rounded-2xl shadow-2xl py-2 z-50 overflow-hidden"
                   >
-                     <div className="px-4 py-3 border-b border-gray-50 mb-2">
-                        <p className="text-sm text-[var(--text-primary)] font-bold truncate">{user?.unique_name}</p>
+                      <div className="px-4 py-3 border-b border-gray-50 mb-2">
+                        <p className="text-sm text-[var(--text-primary)] font-bold truncate">{user?.unique_name || user?.name}</p>
                         <p className="text-xs text-[var(--text-secondary)] truncate">{user?.email}</p>
                      </div>
                      <Link to="/dashboard" onClick={() => setProfileOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm text-[var(--text-secondary)] hover:bg-gray-50 hover:text-[var(--text-primary)] transition-colors">
@@ -155,10 +157,10 @@ export default function Header() {
                   <>
                     <Link to="/dashboard" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 p-4 bg-gray-50 rounded-2xl">
                       <div className="w-10 h-10 bg-[var(--brand-yellow)] rounded-full flex items-center justify-center font-black">
-                        {user?.unique_name?.charAt(0)?.toUpperCase()}
+                        {(user?.unique_name || user?.name || 'U').charAt(0).toUpperCase()}
                       </div>
                       <div>
-                        <p className="font-black text-gray-900 text-sm leading-none">{user?.unique_name}</p>
+                        <p className="font-black text-gray-900 text-sm leading-none">{user?.unique_name || user?.name}</p>
                         <p className="text-xs text-gray-400 font-bold mt-1 uppercase tracking-widest">View Account Dashboard</p>
                       </div>
                     </Link>

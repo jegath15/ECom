@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 import MainLayout from './layouts/MainLayout';
+import ProtectedRoute from './components/ProtectedRoute';
 import PageWrapper from './components/PageWrapper';
 import Home from './pages/Home';
 import Products from './pages/Products';
@@ -31,13 +32,13 @@ function App() {
               <Route path="/register" element={<PageWrapper><Register /></PageWrapper>} />
               <Route path="/bulk-order" element={<PageWrapper><BulkOrder /></PageWrapper>} />
               <Route path="/suppliers" element={<PageWrapper><Suppliers /></PageWrapper>} />
-              <Route path="/dashboard" element={<PageWrapper><Dashboard /></PageWrapper>} />
-              <Route path="/admin" element={<PageWrapper><Admin /></PageWrapper>} />
+              <Route path="/dashboard" element={<ProtectedRoute><PageWrapper><Dashboard /></PageWrapper></ProtectedRoute>} />
+              <Route path="/admin" element={<ProtectedRoute adminOnly><PageWrapper><Admin /></PageWrapper></ProtectedRoute>} />
               
               {/* Functional Pages */}
               <Route path="/about" element={<PageWrapper><AboutUs /></PageWrapper>} />
-              <Route path="/wishlist" element={<PageWrapper><Wishlist /></PageWrapper>} />
-              <Route path="/orders" element={<PageWrapper><OrderTracking /></PageWrapper>} />
+              <Route path="/wishlist" element={<ProtectedRoute><PageWrapper><Wishlist /></PageWrapper></ProtectedRoute>} />
+              <Route path="/orders" element={<ProtectedRoute><PageWrapper><OrderTracking /></PageWrapper></ProtectedRoute>} />
               <Route path="/cart" element={<PageWrapper><Cart /></PageWrapper>} />
             </Route>
           </Routes>
