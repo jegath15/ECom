@@ -89,35 +89,44 @@ export default function Home() {
   return (
     <div className="space-y-16 md:space-y-32 pb-16 md:pb-32 bg-mesh">
       
-      {/* Hero Section - Refined for Fit */}
-      <section className="bg-white rounded-[3rem] mt-8 relative overflow-hidden border border-gray-100 shadow-2xl min-h-[600px] flex items-center">
-        <div className="absolute top-0 right-0 w-2/3 h-full opacity-20 pointer-events-none">
-           <div className="w-full h-full bg-[radial-gradient(circle,rgba(242,201,76,0.2)_1.5px,transparent_1px)] bg-[length:32px_32px]"></div>
-           <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-[var(--brand-yellow)]/10 rounded-full blur-[120px] -translate-y-1/2"></div>
+      {/* Hero Section - Immersive "Cover" Style */}
+      <section className="bg-white rounded-[3rem] mt-8 relative overflow-hidden border border-gray-100 shadow-2xl min-h-[500px] lg:min-h-[600px] flex items-center">
+        {/* Deep Context Background Layer */}
+        <div className="absolute inset-0 z-0 overflow-hidden">
+           {/* Light Mesh Pattern */}
+           <div className="absolute inset-0 bg-[#F9FAFB]"></div>
+           <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(#111827 1px, transparent 1px)', backgroundSize: '32px 32px' }}></div>
+           
+           {/* Visual Asset (Chef Illustration) */}
+           <div className="absolute right-0 top-0 bottom-0 w-full lg:w-[60%] z-0">
+             <img 
+               src="/assets/hero-chef.png" 
+               alt="Procurement Background" 
+               className="w-full h-full object-contain lg:object-cover object-right lg:object-center filter opacity-60 lg:opacity-100 lg:translate-x-10"
+             />
+             {/* Gradient Mask for Text Legibility */}
+             <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent lg:hidden"></div>
+             <div className="hidden lg:block absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-white to-transparent"></div>
+           </div>
         </div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full p-12 lg:p-24 relative z-10">
-          <div className="max-w-2xl">
-            <h1 className="text-4xl md:text-5xl lg:text-7xl font-black text-gray-900 leading-tight mb-8 tracking-tighter">
+        {/* Content Overlay */}
+        <div className="relative z-10 w-full px-8 lg:px-24 py-16 lg:py-24">
+          <div className="max-w-3xl">
+            <h1 className="text-4xl md:text-5xl lg:text-7xl font-black text-[#1F2937] leading-[1.1] mb-6 lg:mb-8 tracking-tighter">
               Bulk Food & Kitchen Supply for Professional chefs
             </h1>
-            <p className="text-gray-500 text-base md:text-lg mb-10 leading-relaxed max-w-xl">
+            <p className="text-[#6B7280] text-base md:text-lg mb-10 leading-relaxed max-w-xl font-medium">
               Streamlining procurement for the modern hospitality industry. Access wholesale pricing, manage multi-location logistics, and secure flexible Net-30 credit terms in one unified startup ecosystem.
             </p>
-            <div className="flex flex-wrap gap-5">
-              <Link to="/products" className="btn-primary px-10 py-5 rounded-2xl text-sm italic font-black uppercase tracking-widest shadow-xl hover:scale-105 transition-all">Browse Products</Link>
-              <Link to="/bulk-order" className="btn-secondary px-10 py-5 rounded-2xl text-sm italic font-black uppercase tracking-widest shadow-xl hover:scale-105 transition-all">Request Quote</Link>
+            <div className="flex flex-col sm:flex-row gap-4 lg:gap-6">
+              <Link to="/products" className="bg-[#FBBF24] hover:bg-[#F59E0B] text-white px-10 py-5 rounded-lg text-sm font-black uppercase tracking-widest transition-all shadow-lg hover:shadow-xl active:scale-95 text-center">
+                Browse Products
+              </Link>
+              <Link to="/bulk-order" className="bg-[#4B5563] hover:bg-[#374151] text-white px-10 py-5 rounded-lg text-sm font-black uppercase tracking-widest transition-all shadow-lg hover:shadow-xl active:scale-95 text-center">
+                Request Quote
+              </Link>
             </div>
-          </div>
-
-          <div className="hidden lg:flex items-center justify-center">
-             <div className="relative w-full max-w-lg aspect-square">
-                <img 
-                  src="/assets/hero-chef.png" 
-                  alt="Professional Chef Procurement" 
-                  className="w-full h-full object-contain filter drop-shadow-2xl animate-float"
-                />
-             </div>
           </div>
         </div>
       </section>
