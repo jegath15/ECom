@@ -89,3 +89,13 @@
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #d1d5db;
 }
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}

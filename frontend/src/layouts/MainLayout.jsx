@@ -15,8 +15,8 @@ export default function MainLayout() {
         <Link to="/products" className="ml-4 underline hover:text-[var(--brand-yellow)] transition-colors">Order Now</Link>
       </div>
 
-      {/* Utility Marquee Bar (ZeeStore Inspired) */}
-      <div className="bg-white border-b border-gray-100 py-3 overflow-hidden group">
+      {/* Utility Marquee Bar (ZeeStore Inspired) - Hidden on Mobile */}
+      <div className="hidden md:block bg-white border-b border-gray-100 py-3 overflow-hidden group">
         <motion.div 
           animate={{ x: [0, -1000] }}
           transition={{ duration: 30, repeat: Infinity, ease: "linear" }}

@@ -154,7 +154,7 @@ export default function Products() {
   }, [searchTerm, products, volumetricActive]);
 
   return (
-    <div className="py-20 space-y-16 max-w-[1600px] mx-auto px-10">
+    <div className="py-8 md:py-20 space-y-10 md:space-y-16 max-w-[1600px] mx-auto px-6 md:px-10">
       
       {/* Header Section */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-10">
@@ -164,15 +164,15 @@ export default function Products() {
             <ChevronRight className="w-3 h-3 text-[var(--brand-yellow)]" />
             <span className="text-gray-900">Procurement Hub</span>
           </div>
-          <h1 className="text-6xl font-black text-gray-900 tracking-tighter uppercase italic leading-[0.9]">
+          <h1 className="text-4xl md:text-6xl font-black text-gray-900 tracking-tighter uppercase italic leading-tight md:leading-[0.9]">
             Enterprise <span className="text-[var(--brand-yellow)]">Supply</span> Chain
           </h1>
-           <p className="text-gray-500 max-w-xl font-medium leading-relaxed italic">
-            Procure industrial-grade hospitality assets. Real-time global synchronization of {products.length} verified B2B nodes with automated volumetric pricing logic.
+           <p className="text-gray-500 max-w-xl font-medium leading-relaxed italic text-sm md:text-base">
+            Procure industrial-grade hospitality assets. Real-time global synchronization of {products.length} verified B2B nodes.
           </p>
         </div>
 
-        <div className="flex gap-4">
+        <div className="hidden sm:flex gap-4">
            {[
               { label: 'Platform Scale', val: '400+', sub: 'Active SKUs', icon: Package },
               { label: 'Global Network', val: '24/7', sub: 'Hub Uptime', icon: Zap }
@@ -191,9 +191,28 @@ export default function Products() {
         </div>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-20">
-        {/* Advanced Filters Sidebar */}
-        <aside className="w-full lg:w-80 shrink-0">
+      {/* Mobile Category Switcher (Visible only on mobile) */}
+      <div className="lg:hidden -mx-6 px-6 overflow-x-auto custom-scrollbar no-scrollbar flex gap-3 pb-4">
+        <button 
+          onClick={() => setSearchTerm('')}
+          className={`px-6 py-3 rounded-xl font-black uppercase tracking-widest text-[10px] transition-all whitespace-nowrap ${searchTerm === '' ? 'bg-gray-900 text-[var(--brand-yellow)] shadow-lg' : 'bg-gray-50 text-gray-400 border border-gray-100'}`}
+        >
+          All SKUs
+        </button>
+        {categories.map((cat) => (
+          <button 
+            key={cat.categoryId}
+            onClick={() => setSearchTerm(cat.categoryName)}
+            className={`px-6 py-3 rounded-xl font-black uppercase tracking-widest text-[10px] transition-all whitespace-nowrap ${searchTerm === cat.categoryName ? 'bg-gray-900 text-[var(--brand-yellow)] shadow-lg' : 'bg-gray-50 text-gray-400 border border-gray-100'}`}
+          >
+            {cat.categoryName}
+          </button>
+        ))}
+      </div>
+
+      <div className="flex flex-col lg:flex-row gap-8 lg:gap-20">
+        {/* Advanced Filters Sidebar (Hidden on mobile, visible on desktop) */}
+        <aside className="hidden lg:block w-80 shrink-0">
           <div className="sticky top-10 space-y-16">
             <div>
               <div className="flex items-center justify-between mb-10">
@@ -238,25 +257,25 @@ export default function Products() {
         {/* Dynamic Product Grid */}
         <div className="flex-1 space-y-12">
           {/* Universal Search & Sort */}
-          <div className="bg-white border border-gray-100 rounded-[2.5rem] p-6 flex flex-wrap items-center justify-between gap-8 shadow-sm">
+          <div className="bg-white border border-gray-100 rounded-[2rem] md:rounded-[2.5rem] p-4 md:p-6 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 md:gap-8 shadow-sm">
              <div className="flex-1 relative">
                 <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-300 scale-x-[-1]" />
                 <input 
                   type="text" 
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  placeholder="Query Enterprise Catalog (Name, SKU, Category)..." 
-                  className="w-full pl-16 pr-8 py-5 rounded-2xl border border-transparent bg-gray-50 text-base font-bold text-gray-900 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--brand-yellow)] focus:bg-white transition-all italic shadow-inner" 
+                  placeholder="Query Portal..." 
+                  className="w-full pl-16 pr-8 py-4 md:py-5 rounded-xl md:rounded-2xl border border-transparent bg-gray-50 text-sm md:text-base font-bold text-gray-900 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--brand-yellow)] focus:bg-white transition-all italic shadow-inner" 
                 />
              </div>
              
-             <div className="flex items-center gap-6 pr-4">
+             <div className="flex items-center justify-between md:justify-end gap-6 md:pr-4">
                 <button className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-gray-900 border-b-2 border-[var(--brand-yellow)] pb-1">Master View</button>
                 <button 
                   onClick={() => setVolumetricActive(!volumetricActive)}
                   className={`text-[10px] font-black uppercase tracking-[0.2em] transition-all px-4 py-2 rounded-lg ${volumetricActive ? 'bg-gray-900 text-[var(--brand-yellow)] shadow-lg' : 'text-gray-400 hover:text-gray-600'}`}
                 >
-                   Volumetric Filter {volumetricActive ? '(ACTIVE)' : ''}
+                   Volumetric {volumetricActive ? '(ON)' : ''}
                 </button>
              </div>
           </div>

@@ -87,7 +87,7 @@ export default function Home() {
   };
 
   return (
-    <div className="space-y-32 pb-32 bg-mesh">
+    <div className="space-y-16 md:space-y-32 pb-16 md:pb-32 bg-mesh">
       
       {/* Hero Section */}
       <section className="bg-white rounded-[3rem] mt-8 p-12 lg:p-24 relative overflow-hidden border border-gray-100 shadow-2xl min-h-[600px] flex items-center">
@@ -97,10 +97,10 @@ export default function Home() {
         </div>
         
         <div className="relative z-10 max-w-3xl">
-          <h1 className="text-4xl lg:text-6xl font-black text-gray-900 leading-tight mb-8">
+          <h1 className="text-4xl md:text-6xl font-black text-gray-900 leading-tight mb-6 md:mb-8">
             Bulk Food & Kitchen Supply for Professional chefs
           </h1>
-          <p className="text-gray-500 text-lg mb-10 max-w-xl leading-relaxed">
+          <p className="text-gray-500 text-base md:text-lg mb-8 md:mb-10 max-w-xl leading-relaxed">
             Streamlining procurement for the modern hospitality industry. Access wholesale pricing, manage multi-location logistics, and secure flexible Net-30 credit terms in one unified startup ecosystem.
           </p>
           <div className="flex flex-wrap gap-5">
@@ -122,38 +122,38 @@ export default function Home() {
       </section>
 
       {/* Search Bar (Restored & Refined) */}
-      <div className="max-w-5xl mx-auto -mt-24 relative z-20 px-6">
-         <form onSubmit={handleSearch} className="flex gap-2 p-3 bg-white border border-gray-200 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] backdrop-blur-xl">
+      <div className="max-w-5xl mx-auto -mt-12 md:-mt-24 relative z-20 px-6">
+         <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-2 p-2 md:p-3 bg-white border border-gray-200 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] backdrop-blur-xl">
             <div className="relative flex-1 flex items-center">
-               <Search className="absolute left-8 w-6 h-6 text-gray-400" />
+               <Search className="absolute left-6 md:left-8 w-5 md:w-6 h-5 md:h-6 text-gray-400" />
                <input 
                  type="text" 
                  value={searchTerm}
                  onChange={(e) => setSearchTerm(e.target.value)}
                  placeholder="Search global B2B inventory..." 
-                 className="w-full bg-transparent text-gray-900 placeholder-gray-400 focus:outline-none pl-20 pr-8 py-5 text-xl font-medium"
+                 className="w-full bg-transparent text-gray-900 placeholder-gray-400 focus:outline-none pl-16 md:pl-20 pr-6 md:pr-8 py-4 md:py-5 text-lg md:text-xl font-medium"
                />
             </div>
-            <button type="submit" className="bg-gray-900 hover:bg-black text-white px-12 rounded-2xl font-black uppercase tracking-widest text-xs transition-all shadow-xl active:scale-95">
+            <button type="submit" className="bg-gray-900 hover:bg-black text-white px-8 md:px-12 py-4 md:py-0 rounded-2xl font-black uppercase tracking-widest text-[10px] md:text-xs transition-all shadow-xl active:scale-95">
               Execute Search
             </button>
          </form>
       </div>
 
       {/* Service Highlights Bar (ZeeStore Style) */}
-      <section className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 px-6">
+      <section className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10 px-6">
          {[
            { icon: Truck, title: "Next-Day Freight", desc: "For all orders placed before 16:00 GMT." },
            { icon: HeadphonesIcon, title: "24/7 Procurement Desk", desc: "Direct access to node account managers." },
-           { icon: Package, title: "Cold Chain Verified", desc: "Real-time temperature and humidity tracking." }
+           { icon: Package, title: "Cold Chain Verified", desc: "Real-time tracking." }
          ].map((item, i) => (
-           <div key={i} className="flex items-center gap-8 p-10 bg-white border border-gray-100 rounded-[2.5rem] shadow-sm hover:shadow-2xl hover:border-gray-900 transition-all group cursor-default">
-              <div className="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center text-gray-900 group-hover:bg-gray-900 group-hover:text-white transition-all shadow-inner border border-gray-100">
-                 <item.icon className="w-8 h-8" />
+           <div key={i} className="flex items-center gap-6 md:gap-8 p-6 md:p-10 bg-white border border-gray-100 rounded-[2rem] md:rounded-[2.5rem] shadow-sm hover:shadow-2xl hover:border-gray-900 transition-all group cursor-default">
+              <div className="w-12 h-12 md:w-16 md:h-16 bg-gray-50 rounded-2xl flex items-center justify-center text-gray-900 group-hover:bg-gray-900 group-hover:text-white transition-all shadow-inner border border-gray-100">
+                 <item.icon className="w-6 md:w-8 h-6 md:h-8" />
               </div>
               <div>
-                 <h4 className="font-black uppercase tracking-[0.2em] text-[10px] text-gray-900 mb-2">{item.title}</h4>
-                 <p className="text-gray-400 text-xs font-bold leading-relaxed">{item.desc}</p>
+                 <h4 className="font-black uppercase tracking-[0.2em] text-[8px] md:text-[10px] text-gray-900 mb-1 md:mb-2">{item.title}</h4>
+                 <p className="text-gray-400 text-[10px] md:text-xs font-bold leading-relaxed">{item.desc}</p>
               </div>
            </div>
          ))}
@@ -201,13 +201,13 @@ export default function Home() {
       </section>
 
       {/* Featured Products Section (ZeeStore Style) */}
-      <section className="space-y-16">
-        <div className="flex items-end justify-between px-6">
+      <section className="space-y-10 md:space-y-16">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 px-6">
           <div>
-            <h2 className="text-4xl lg:text-5xl font-black text-gray-900 tracking-tighter mb-4">Top Procurement Items</h2>
-            <p className="text-gray-400 font-bold text-sm">Real-time enterprise inventory across all distribution nodes.</p>
+            <h2 className="text-3xl md:text-5xl font-black text-gray-900 tracking-tighter mb-4">Top Procurement Items</h2>
+            <p className="text-gray-400 font-bold text-xs md:text-sm">Real-time enterprise inventory across all distribution nodes.</p>
           </div>
-          <Link to="/products" className="flex items-center gap-3 font-black uppercase tracking-widest text-xs text-gray-900 hover:gap-5 transition-all">
+          <Link to="/products" className="flex items-center gap-3 font-black uppercase tracking-widest text-[10px] md:text-xs text-gray-900 hover:gap-5 transition-all w-fit">
             Explore Catalog <ArrowRight className="w-4 h-4 text-[var(--brand-yellow)]" />
           </Link>
         </div>
