@@ -22,19 +22,20 @@ public class AuthService : IAuthService
 
     public async Task<string> Register(RegisterDto dto)
     {
+        var email = dto.Email.ToLower().Trim();
         var user = new User
         {
             UserId = Guid.NewGuid(),
             Name = dto.Name,
-            Email = dto.Email,
+            Email = email,
             PasswordHash = dto.Password,
             Role = string.IsNullOrEmpty(dto.Role) ? "Buyer" : dto.Role
         };
 
-        var existingUser = _context.Users.FirstOrDefault(u => u.Email == dto.Email);
+        var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
         if (existingUser != null)
         {
-            throw new Exception("Email already registered");
+            throw new Exception("Enterprise node email already registered.");
         }
 
         _context.Users.Add(user);
@@ -63,20 +64,18 @@ public class AuthService : IAuthService
         };
         _context.Wallets.Add(wallet);
 
-        Console.WriteLine($"[DEBUG] Registering: User={user.Email}, Business={business.BusinessName}");
-        var rowsAffected = await _context.SaveChangesAsync();
-        Console.WriteLine($"[DEBUG] SaveChangesAsync returned: {rowsAffected} rows affected");
-
+        await _context.SaveChangesAsync();
         return GenerateToken(user);
     }
 
     public async Task<string> Login(LoginDto dto)
     {
-        var user = _context.Users
-            .FirstOrDefault(u => u.Email == dto.Email && u.PasswordHash == dto.Password);
+        var email = dto.Email.ToLower().Trim();
+        var user = await _context.Users
+            .FirstOrDefaultAsync(u => u.Email == email && u.PasswordHash == dto.Password);
 
         if (user == null)
-            throw new Exception("Invalid credentials");
+            throw new Exception("Authentication failed: Invalid node credentials.");
 
         return GenerateToken(user);
     }

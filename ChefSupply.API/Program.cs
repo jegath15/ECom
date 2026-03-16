@@ -138,7 +138,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.MapGet("/", () => "Chef Supply API Running v2.2 (Enterprise Admin) 🚀");
+app.MapGet("/", () => "Chef Supply API Running v2.3 (Auth Consistency Fix) 🚀");
 app.MapGet("/api/db-count", async (ApplicationDbContext db) => {
     var conn = db.Database.GetDbConnection().ConnectionString;
     return Results.Ok(new { 
