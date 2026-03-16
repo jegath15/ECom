@@ -145,6 +145,8 @@ namespace ChefSupply.API.Models
                 entity.Property(e => e.Address).HasColumnName("address");
                 entity.Property(e => e.City).HasColumnName("city");
                 entity.Property(e => e.State).HasColumnName("state");
+                entity.Property(e => e.IndustryType).HasColumnName("industry_type");
+                entity.Property(e => e.EstimatedMonthlyVolume).HasColumnName("estimated_monthly_volume");
                 entity.Property(e => e.CreatedAt).HasColumnName("created_at");
             });
 

@@ -15,7 +15,12 @@ export const AuthProvider = ({ children }) => {
     if (token) {
       try {
         const decoded = jwtDecode(token);
-        setUser(decoded);
+        // Normalize user object to ensure userId is consistently available
+        const normalizedUser = {
+          ...decoded,
+          userId: decoded.nameid || decoded.sub || decoded.userId
+        };
+        setUser(normalizedUser);
         // Setup default auth header
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       } catch (err) {

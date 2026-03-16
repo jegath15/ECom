@@ -36,6 +36,12 @@ export default function Dashboard() {
       setLoading(true);
       
       // Resolve Business ID first
+      if (!user?.userId) {
+        console.warn("No userId available in session");
+        setLoading(false);
+        return;
+      }
+
       const businessRes = await axios.get(`${API_URL}/api/business/${user.userId}`);
       const bid = businessRes.data.businessId;
       setBusinessProfile(businessRes.data);

@@ -26,7 +26,7 @@ export default function Register() {
     setError('');
     
     try {
-      await axios.post(`${API_URL}/api/auth/register`, {
+      const response = await axios.post(`${API_URL}/api/auth/register`, {
         Name: formData.businessName,
         Email: formData.email,
         Password: formData.password,
@@ -37,9 +37,13 @@ export default function Register() {
         IndustryType: formData.industryType,
         EstimatedMonthlyVolume: parseFloat(formData.monthlyVolume) || 0
       });
-      navigate('/login'); // Redirect to login on success
+      
+      if (response.status === 200 || response.status === 201) {
+        navigate('/login'); // Only redirect on success
+      }
     } catch (err) {
-      setError('Registration failed. Please check your details.');
+      console.error("Registration Error:", err.response?.data || err.message);
+      setError(err.response?.data || 'Registration failed. Please verify your business credentials.');
     } finally {
       setLoading(false);
     }

@@ -14,6 +14,8 @@ namespace ChefSupply.API.Data
 
                 context.Database.ExecuteSqlRaw(@"
                     ALTER TABLE products ADD COLUMN IF NOT EXISTS image_url TEXT;
+                    ALTER TABLE businesses ADD COLUMN IF NOT EXISTS industry_type TEXT;
+                    ALTER TABLE businesses ADD COLUMN IF NOT EXISTS estimated_monthly_volume DECIMAL;
                 ");
 
                 // Check if already seeded & not forced
