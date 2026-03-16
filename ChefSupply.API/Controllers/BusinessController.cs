@@ -22,15 +22,11 @@ namespace ChefSupply.API.Controllers
         [HttpGet("{userId}")]
         public async Task<IActionResult> GetBusinessProfile(Guid userId)
         {
-            // First we try mapping Business by UserId. If none exists, we return a generic business.
             var business = await _context.Businesses.FirstOrDefaultAsync(b => b.UserId == userId);
             
-            if (business == null)
-            {
-               business = await _context.Businesses.FirstOrDefaultAsync(); // Fallback to any business for testing UI
-            }
-
-            if (business == null) return NotFound("No commercial business profile found.");
+            if (business == null) return NotFound("No commercial business profile found for this user.");
+            
+            return Ok(business);
             
             return Ok(business);
         }

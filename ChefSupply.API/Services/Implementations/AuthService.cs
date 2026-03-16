@@ -62,7 +62,9 @@ public class AuthService : IAuthService
         };
         _context.Wallets.Add(wallet);
 
-        await _context.SaveChangesAsync();
+        Console.WriteLine($"[DEBUG] Registering: User={user.Email}, Business={business.BusinessName}");
+        var rowsAffected = await _context.SaveChangesAsync();
+        Console.WriteLine($"[DEBUG] SaveChangesAsync returned: {rowsAffected} rows affected");
 
         return GenerateToken(user);
     }
