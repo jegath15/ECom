@@ -139,6 +139,14 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapGet("/", () => "Chef Supply API Running 🚀");
+app.MapGet("/api/db-count", async (ApplicationDbContext db) => {
+    return Results.Ok(new { 
+        users = await db.Users.CountAsync(), 
+        biz = await db.Businesses.CountAsync(),
+        wallets = await db.Wallets.CountAsync(),
+        time = DateTime.UtcNow 
+    });
+});
 
 app.UseCors("AllowReactApp");
 
