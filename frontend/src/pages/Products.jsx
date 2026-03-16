@@ -46,19 +46,19 @@ const ProductCard = ({ product, onAdd }) => (
            <div className="w-1 h-1 rounded-full bg-gray-200" />
            <ShieldCheck className="w-3 h-3 text-gray-400" />
         </div>
-        <h3 className="text-lg font-black text-gray-900 mb-4 leading-tight group-hover:text-gray-700 transition-colors uppercase italic">{product.productName}</h3>
+        <h3 className="text-lg font-black text-gray-900 mb-4 leading-tight group-hover:text-gray-700 transition-colors uppercase italic line-clamp-3 min-h-[3rem]">{product.productName}</h3>
         <p className="text-gray-500 text-xs leading-relaxed italic font-medium mb-8 line-clamp-3">{product.description}</p>
       </div>
       
       <div className="mb-10 grid grid-cols-2 gap-5">
-         <div className="bg-gray-50/80 rounded-3xl p-6 border border-gray-100 flex flex-col justify-between min-h-[110px]">
+         <div className="bg-gray-50/80 rounded-3xl p-7 border border-gray-100 flex flex-col justify-between min-h-[120px]">
             <span className="text-[10px] text-gray-400 font-black uppercase tracking-widest">Availability</span>
             <div className={`flex flex-col mt-2 ${product.availableQuantity > 50 ? 'text-gray-900' : 'text-red-600'}`}>
                <span className="text-2xl font-black leading-none">{product.availableQuantity}</span>
                <span className="text-[10px] font-bold uppercase tracking-widest mt-1">{product.unit}s</span>
             </div>
          </div>
-         <div className="bg-gray-50/80 rounded-3xl p-6 border border-gray-100 flex flex-col justify-between min-h-[110px]">
+         <div className="bg-gray-50/80 rounded-3xl p-7 border border-gray-100 flex flex-col justify-between min-h-[120px]">
             <span className="text-[10px] text-gray-400 font-black uppercase tracking-widest">Delivery</span>
             <span className="text-sm font-black text-gray-900 leading-tight mt-auto">Next Business Day</span>
          </div>
