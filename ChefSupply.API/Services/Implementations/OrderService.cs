@@ -142,4 +142,44 @@ public class OrderService : IOrderService
 
         return order;
     }
+
+    public async Task<List<OrderResponseDto>> GetAllOrders()
+    {
+        var orders = await _context.Orders
+            .Include(o => o.OrderItems)
+            .OrderByDescending(o => o.CreatedAt)
+            .Select(o => new OrderResponseDto
+            {
+                OrderId = o.OrderId,
+                BusinessId = o.BusinessId ?? Guid.Empty,
+                OrderStatus = o.OrderStatus,
+                TotalAmount = o.TotalAmount,
+                InternalPoNumber = o.InternalPoNumber,
+                CreatedAt = o.CreatedAt,
+
+                Items = o.OrderItems.Select(i => new OrderItemResponseDto
+                {
+                    ProductId = i.ProductId ?? Guid.Empty,
+                    Quantity = i.Quantity ?? 0,
+                    Price = i.Price ?? 0,
+                    BidPrice = i.BidPrice,
+                    Subtotal = i.Subtotal ?? 0
+                }).ToList()
+            })
+            .ToListAsync();
+
+        return orders;
+    }
+
+    public async Task<Order> UpdateOrderStatus(Guid orderId, string status)
+    {
+        var order = await _context.Orders.FindAsync(orderId);
+        if (order == null) throw new Exception("Order not found.");
+
+        order.OrderStatus = status;
+        await _context.SaveChangesAsync();
+
+        // Notify user/business if needed
+        return order;
+    }
 }

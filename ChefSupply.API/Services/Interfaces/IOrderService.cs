@@ -10,4 +10,6 @@ public interface IOrderService
     Task<List<OrderResponseDto>> GetOrdersByBusiness(Guid businessId);
 
     Task<Order> ConvertQuotationToOrder(Guid orderId);
+    Task<List<OrderResponseDto>> GetAllOrders();
+    Task<Order> UpdateOrderStatus(Guid orderId, string status);
 }
