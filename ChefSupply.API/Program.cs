@@ -138,7 +138,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.MapGet("/", () => "Chef Supply API Running 🚀");
+app.MapGet("/", () => "Chef Supply API Running v2.1 (Diagnostic) 🚀");
 app.MapGet("/api/db-count", async (ApplicationDbContext db) => {
     return Results.Ok(new { 
         users = await db.Users.CountAsync(), 
