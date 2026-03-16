@@ -140,10 +140,13 @@ if (app.Environment.IsDevelopment())
 
 app.MapGet("/", () => "Chef Supply API Running v2.1 (Diagnostic) 🚀");
 app.MapGet("/api/db-count", async (ApplicationDbContext db) => {
+    var conn = db.Database.GetDbConnection().ConnectionString;
     return Results.Ok(new { 
         users = await db.Users.CountAsync(), 
         biz = await db.Businesses.CountAsync(),
         wallets = await db.Wallets.CountAsync(),
+        provider = db.Database.ProviderName,
+        conn_masked = conn.Length > 10 ? conn.Substring(0, 10) + "..." : "EMPTY",
         time = DateTime.UtcNow 
     });
 });
