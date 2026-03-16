@@ -37,5 +37,8 @@ namespace ChefSupply.API.Models
 
         [Column("created_at")]
         public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;
+
+        public virtual Category? Category { get; set; }
+        public virtual ICollection<Inventory> Inventories { get; set; } = new List<Inventory>();
     }
 }
