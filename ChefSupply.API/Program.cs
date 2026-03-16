@@ -13,7 +13,17 @@ using ChefSupply.API.Data;
 using ChefSupply.API.Middleware;
 
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(new WebApplicationOptions
+{
+    Args = args
+});
+
+// Explicitly disable file watchers for configuration files as they hit inotify limits on Render
+builder.Configuration.Sources.Clear();
+builder.Configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: false);
+builder.Configuration.AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: false);
+builder.Configuration.AddEnvironmentVariables();
+if (args != null) builder.Configuration.AddCommandLine(args);
 
 builder.Services.AddScoped<IAuthService, AuthService>();
 
