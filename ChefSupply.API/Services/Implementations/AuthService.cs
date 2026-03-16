@@ -1,5 +1,6 @@
 using ChefSupply.API.DTOs;
 using ChefSupply.API.Models;
+using Microsoft.EntityFrameworkCore;
 using ChefSupply.API.Services.Interfaces;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
