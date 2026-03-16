@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  ShieldAlert, RefreshCw, CheckCircle2, AlertCircle, Database, 
-  Package, Truck, Clock, ChevronRight, BarChart3, Users, 
-  Building2, ShoppingBag, LayoutDashboard, Search
+  ShieldAlert, RefreshCw, CheckCircle2, AlertCircle, 
+  Package, Truck, Clock, BarChart3, Users, 
+  Building2, ShoppingBag, LayoutDashboard
 } from 'lucide-react';
 import axios from 'axios';
 import API_URL from '../config';
@@ -17,7 +17,6 @@ export default function Admin() {
   const [status, setStatus] = useState(null);
   const [error, setError] = useState('');
   const [tab, setTab] = useState('dashboard'); // 'dashboard', 'orders', 'businesses', 'products', 'system'
-  const [searchTerm, setSearchTerm] = useState('');
 
   const fetchData = useCallback(async () => {
     try {
