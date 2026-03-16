@@ -154,7 +154,7 @@ export default function Products() {
   }, [searchTerm, products, volumetricActive]);
 
   return (
-    <div className="py-8 md:py-20 space-y-10 md:space-y-16 max-w-[1600px] mx-auto px-6 md:px-10">
+    <div className="py-8 md:py-20 space-y-10 md:space-y-16 max-w-[1400px] mx-auto px-6 md:px-10">
       
       {/* Header Section */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-10">

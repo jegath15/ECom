@@ -89,35 +89,36 @@ export default function Home() {
   return (
     <div className="space-y-16 md:space-y-32 pb-16 md:pb-32 bg-mesh">
       
-      {/* Hero Section */}
-      <section className="bg-white rounded-[3rem] mt-8 p-12 lg:p-24 relative overflow-hidden border border-gray-100 shadow-2xl min-h-[600px] flex items-center">
+      {/* Hero Section - Refined for Fit */}
+      <section className="bg-white rounded-[3rem] mt-8 relative overflow-hidden border border-gray-100 shadow-2xl min-h-[600px] flex items-center">
         <div className="absolute top-0 right-0 w-2/3 h-full opacity-20 pointer-events-none">
            <div className="w-full h-full bg-[radial-gradient(circle,rgba(242,201,76,0.2)_1.5px,transparent_1px)] bg-[length:32px_32px]"></div>
            <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-[var(--brand-yellow)]/10 rounded-full blur-[120px] -translate-y-1/2"></div>
         </div>
         
-        <div className="relative z-10 max-w-3xl">
-          <h1 className="text-4xl md:text-6xl font-black text-gray-900 leading-tight mb-6 md:mb-8">
-            Bulk Food & Kitchen Supply for Professional chefs
-          </h1>
-          <p className="text-gray-500 text-base md:text-lg mb-8 md:mb-10 max-w-xl leading-relaxed">
-            Streamlining procurement for the modern hospitality industry. Access wholesale pricing, manage multi-location logistics, and secure flexible Net-30 credit terms in one unified startup ecosystem.
-          </p>
-          <div className="flex flex-wrap gap-5">
-            <Link to="/products" className="btn-primary px-10">Browse Products</Link>
-            <Link to="/bulk-order" className="btn-secondary px-10">Request Quote</Link>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full p-12 lg:p-24 relative z-10">
+          <div className="max-w-2xl">
+            <h1 className="text-4xl md:text-5xl lg:text-7xl font-black text-gray-900 leading-tight mb-8 tracking-tighter">
+              Bulk Food & Kitchen Supply for Professional chefs
+            </h1>
+            <p className="text-gray-500 text-base md:text-lg mb-10 leading-relaxed max-w-xl">
+              Streamlining procurement for the modern hospitality industry. Access wholesale pricing, manage multi-location logistics, and secure flexible Net-30 credit terms in one unified startup ecosystem.
+            </p>
+            <div className="flex flex-wrap gap-5">
+              <Link to="/products" className="btn-primary px-10 py-5 rounded-2xl text-sm italic font-black uppercase tracking-widest shadow-xl hover:scale-105 transition-all">Browse Products</Link>
+              <Link to="/bulk-order" className="btn-secondary px-10 py-5 rounded-2xl text-sm italic font-black uppercase tracking-widest shadow-xl hover:scale-105 transition-all">Request Quote</Link>
+            </div>
           </div>
-        </div>
 
-        {/* Hero Image Illustration Placeholder */}
-        <div className="hidden lg:block absolute right-0 bottom-0 top-0 w-1/2 flex items-center justify-center p-8">
-           <div className="relative w-full h-full">
-              <img 
-                src="/assets/hero-chef.png" 
-                alt="Professional Chef Procurement" 
-                className="w-full h-full object-contain filter drop-shadow-2xl"
-              />
-           </div>
+          <div className="hidden lg:flex items-center justify-center">
+             <div className="relative w-full max-w-lg aspect-square">
+                <img 
+                  src="/assets/hero-chef.png" 
+                  alt="Professional Chef Procurement" 
+                  className="w-full h-full object-contain filter drop-shadow-2xl animate-float"
+                />
+             </div>
+          </div>
         </div>
       </section>
 
