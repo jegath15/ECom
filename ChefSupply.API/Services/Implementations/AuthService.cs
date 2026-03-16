@@ -107,4 +107,16 @@ public class AuthService : IAuthService
 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
+
+    public async Task<object> GetDbStatus()
+    {
+        return new
+        {
+            UserCount = await _context.Users.CountAsync(),
+            BusinessCount = await _context.Businesses.CountAsync(),
+            WalletCount = await _context.Wallets.CountAsync(),
+            Connection = _context.Database.GetDbConnection().ConnectionString.Length > 0 ? "Connected" : "Disconnected",
+            Timestamp = DateTime.UtcNow
+        };
+    }
 }

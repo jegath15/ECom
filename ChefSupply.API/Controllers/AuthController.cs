@@ -28,4 +28,11 @@ public class AuthController : ControllerBase
         var token = await _service.Login(dto);
         return Ok(new { token });
     }
+
+    [HttpGet("db-status")]
+    public async Task<IActionResult> GetDbStatus()
+    {
+        var status = await _service.GetDbStatus();
+        return Ok(status);
+    }
 }
