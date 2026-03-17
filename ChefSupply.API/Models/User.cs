@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -12,15 +12,15 @@ namespace ChefSupply.API.Models
         public Guid UserId { get; set; }
 
         [Column("name")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [Column("email")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         [Column("password_hash")]
-        public string PasswordHash { get; set; }
+        public string? PasswordHash { get; set; }
 
         [Column("role")]
-        public string Role { get; set; }
+        public string? Role { get; set; }
     }
 }

@@ -7,6 +7,9 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
+using System.Linq;
+using System.Data;
+
 namespace ChefSupply.API.Services.Implementations;
 
 public class AuthService : IAuthService
@@ -86,7 +89,7 @@ public class AuthService : IAuthService
         {
             new Claim("nameid", user.UserId.ToString()),
             new Claim("unique_name", user.Name ?? ""),
-            new Claim("email", user.Email),
+            new Claim("email", user.Email ?? ""),
             new Claim("role", user.Role ?? "Buyer")
         };
 
@@ -110,12 +113,16 @@ public class AuthService : IAuthService
 
     public async Task<object> GetDbStatus()
     {
+        var users = await _context.Users.CountAsync();
+        var biz = await _context.Businesses.CountAsync();
+        var wallets = await _context.Wallets.CountAsync();
+        
         return new
         {
-            UserCount = await _context.Users.CountAsync(),
-            BusinessCount = await _context.Businesses.CountAsync(),
-            WalletCount = await _context.Wallets.CountAsync(),
-            Connection = _context.Database.GetDbConnection().ConnectionString.Length > 0 ? "Connected" : "Disconnected",
+            UserCount = users,
+            BusinessCount = biz,
+            WalletCount = wallets,
+            Connection = "Active",
             Timestamp = DateTime.UtcNow
         };
     }

@@ -73,7 +73,7 @@ namespace ChefSupply.API.Controllers
         }
 
         [HttpPost("reset-data")]
-        public async Task<IActionResult> ResetData()
+        public IActionResult ResetData()
         {
             try 
             {

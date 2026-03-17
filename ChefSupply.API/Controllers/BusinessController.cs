@@ -27,8 +27,6 @@ namespace ChefSupply.API.Controllers
             if (business == null) return NotFound("No commercial business profile found for this user.");
             
             return Ok(business);
-            
-            return Ok(business);
         }
 
         // PUT update business profile

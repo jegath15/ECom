@@ -23,7 +23,7 @@ namespace ChefSupply.API.Controllers
                 .Select(i => new {
                     i.InventoryId,
                     i.ProductId,
-                    ProductName = i.Product.ProductName,
+                    ProductName = i.Product != null ? i.Product.ProductName : "Unassigned",
                     i.AvailableQuantity,
                     i.UpdatedAt
                 })

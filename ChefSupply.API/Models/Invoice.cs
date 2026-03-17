@@ -1,4 +1,4 @@
-﻿namespace ChefSupply.API.Models
+namespace ChefSupply.API.Models
 {
     public class Invoice
     {
@@ -8,7 +8,7 @@
 
         public decimal TotalAmount { get; set; }
 
-        public string Status { get; set; }
+        public string? Status { get; set; }
 
         public DateTime InvoiceDate { get; set; }
     }
