@@ -16,6 +16,7 @@ export default function Admin() {
   const [products, setProducts] = useState([]);
   const [status, setStatus] = useState(null);
   const [error, setError] = useState('');
+  const [selectedOrder, setSelectedOrder] = useState(null);
   const [tab, setTab] = useState('dashboard'); // 'dashboard', 'orders', 'businesses', 'products', 'system'
 
   const fetchData = useCallback(async () => {
@@ -75,6 +76,19 @@ export default function Admin() {
       fetchData();
     } catch (err) {
       alert('Security violation or network error.');
+    }
+  };
+
+  const verifyBusiness = async (businessId) => {
+    try {
+      const token = localStorage.getItem('token');
+      await axios.patch(`${API_URL}/api/admin/businesses/${businessId}/verify`, {}, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      fetchData();
+      alert('Business successfully verified for Enterprise Credit.');
+    } catch (err) {
+      alert('Verification protocol failed.');
     }
   };
 
@@ -201,10 +215,16 @@ export default function Admin() {
                         </td>
                         <td className="px-8 py-6">
                           <div className="flex justify-end gap-2">
+                             <button 
+                                onClick={() => setSelectedOrder(order)}
+                                className="text-slate-400 hover:text-white text-[10px] font-black uppercase tracking-widest px-4 py-2"
+                              >
+                                Details
+                              </button>
                             {order.orderStatus === 'Pending' && (
                               <button 
                                 onClick={() => updateStatus(order.orderId, 'Approved')}
-                                className="bg-emerald-500 hover:bg-emerald-400 text-slate-900 text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-xl transition-all shadow-lg shadow-emerald-500/10 px-6"
+                                className="bg-emerald-500 hover:bg-emerald-400 text-slate-900 text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-xl transition-all shadow-lg shadow-emerald-500/10"
                               >
                                 Approve
                               </button>
@@ -212,7 +232,7 @@ export default function Admin() {
                             {order.orderStatus === 'Approved' && (
                               <button 
                                 onClick={() => updateStatus(order.orderId, 'Shipped')}
-                                className="bg-blue-500 hover:bg-blue-400 text-slate-900 text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-xl transition-all shadow-lg shadow-blue-500/10 px-6"
+                                className="bg-blue-500 hover:bg-blue-400 text-slate-900 text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-xl transition-all shadow-lg shadow-blue-500/10"
                               >
                                 Dispatch
                               </button>
@@ -259,7 +279,17 @@ export default function Admin() {
                         </td>
                         <td className="px-8 py-6 font-black text-slate-500 font-mono text-xs">{biz.gstNumber || 'UNREGISTERED'}</td>
                         <td className="px-8 py-6 text-right">
-                          <span className={`text-[10px] font-black uppercase tracking-widest ${biz.creditStatus === 'Verified' ? 'text-emerald-400' : 'text-amber-400'}`}>{biz.creditStatus}</span>
+                          <div className="flex items-center justify-end gap-4">
+                            <span className={`text-[10px] font-black uppercase tracking-widest ${biz.creditStatus === 'Verified' ? 'text-emerald-400' : 'text-amber-400'}`}>{biz.creditStatus}</span>
+                            {biz.creditStatus !== 'Verified' && (
+                              <button 
+                                onClick={() => verifyBusiness(biz.businessId)}
+                                className="bg-emerald-500/10 hover:bg-emerald-500 text-emerald-400 hover:text-slate-900 text-[9px] font-black uppercase px-3 py-1.5 rounded-lg border border-emerald-500/20 transition-all"
+                              >
+                                Verify Credit
+                              </button>
+                            )}
+                          </div>
                         </td>
                       </tr>
                     ))}
@@ -338,6 +368,47 @@ export default function Admin() {
           )}
         </AnimatePresence>
       </div>
+
+      {/* Order Details Modal */}
+      <AnimatePresence>
+        {selectedOrder && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[60] flex items-center justify-center p-6 bg-slate-950/80 backdrop-blur-md"
+          >
+            <motion.div 
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              className="bg-slate-900 w-full max-w-2xl rounded-[2.5rem] border border-slate-700 shadow-2xl overflow-hidden"
+            >
+              <div className="p-10 border-b border-slate-800 flex justify-between items-center">
+                <div>
+                  <h3 className="text-2xl font-black text-white uppercase italic">Order Breakdown</h3>
+                  <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">Ref: #{selectedOrder.orderId.toUpperCase()}</p>
+                </div>
+                <button onClick={() => setSelectedOrder(null)} className="w-10 h-10 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center text-slate-400 transition-all">✕</button>
+              </div>
+              <div className="p-10 max-h-[60vh] overflow-y-auto space-y-4">
+                {selectedOrder.items?.map((item, idx) => (
+                  <div key={idx} className="flex items-center justify-between p-6 bg-slate-800/50 rounded-2xl border border-slate-700">
+                    <div>
+                      <p className="text-sm font-black text-white">{item.productName || 'Proprietary SKU'}</p>
+                      <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Qty: {item.quantity} units @ ₹{item.price.toFixed(2)}</p>
+                    </div>
+                    <p className="text-xl font-black text-emerald-400 tracking-tighter italic">₹{item.subtotal.toFixed(2)}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="p-10 bg-slate-950/50 border-t border-slate-800 flex justify-between items-center">
+                <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest italic">Global Aggregate</span>
+                <span className="text-4xl font-black text-emerald-400 tracking-tighter italic">₹{selectedOrder.totalAmount.toLocaleString()}</span>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

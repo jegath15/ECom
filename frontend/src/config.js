@@ -1,3 +1,3 @@
-const API_URL = process.env.REACT_APP_API_URL || 'https://ecom-org0.onrender.com';
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5180';
 
 export default API_URL;

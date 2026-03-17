@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight, Clock, UserPlus, Building2, FileKey2, CheckCircle2, AlertCircle, Plus } from 'lucide-react';
+import { ArrowUpRight, Clock, UserPlus, Building2, FileKey2, CheckCircle2, AlertCircle, Plus, Zap, ArrowRight, ShieldCheck, Package } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } from 'recharts';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
@@ -21,6 +21,10 @@ export default function Dashboard() {
   const [actionLoading, setActionLoading] = useState(false);
   const [currentBid, setCurrentBid] = useState(null);
   const [toast, setToast] = useState(null);
+  const [aiAssistantOpen, setAiAssistantOpen] = useState(false);
+  const [aiLoading, setAiLoading] = useState(false);
+  const [aiSuggestions, setAiSuggestions] = useState([]);
+  const [selectedOrder, setSelectedOrder] = useState(null);
 
   const showToast = (message, type = 'success') => {
     setToast({ message, type });
@@ -140,6 +144,20 @@ export default function Dashboard() {
     }
   };
 
+  const generateAISuggestions = () => {
+    setAiLoading(true);
+    // Simulated AI Intelligence Pulse
+    setTimeout(() => {
+      const suggestions = [
+        { title: "Inventory Optimization", desc: "Based on your 14M velocity, we recommend restocking 'Pantry Supplies' 2 days earlier to avoid node latency." },
+        { title: "Tier 3 Opportunity", desc: "Increase 'Disposables' volume by 12% to unlock Tier 3 Wholesaling (save ₹4,200/mo)." },
+        { title: "Risk Alert", desc: "Port IN-MAA reports slight congestion. Route next batch through Port IN-BOM for optimal delivery." }
+      ];
+      setAiSuggestions(suggestions);
+      setAiLoading(false);
+    }, 2000);
+  };
+
   return (
     <>
       <div className="py-16 max-w-[1400px] mx-auto px-6">
@@ -150,8 +168,16 @@ export default function Dashboard() {
             <h1 className="text-4xl font-black text-gray-900 mb-2 tracking-tight">Enterprise Console</h1>
             <p className="text-gray-500 font-medium tracking-wide">Business Partner ID: <span className="text-gray-900 font-black">{(currentBid || businessId).substring(0,8)}</span> | Welcome back, <span className="text-[var(--brand-yellow)] font-black uppercase tracking-widest text-xs">{user?.unique_name || 'Partner'}</span></p>
           </div>
-          <div className="hidden md:block">
-             <span className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 bg-gray-50 px-4 py-2 rounded-xl border border-gray-100 shadow-sm">Global Marketplace Status: <span className="text-green-600">Active</span></span>
+          <div className="flex items-center gap-6">
+             {businessProfile?.creditStatus === 'Verified' && (
+               <div className="hidden md:flex items-center gap-2 px-6 py-2 bg-green-50 text-green-600 rounded-full border border-green-100 shadow-sm">
+                  <CheckCircle2 className="w-4 h-4" />
+                  <span className="text-[10px] font-black uppercase tracking-widest">Verified Enterprise Node</span>
+               </div>
+             )}
+             <div className="hidden md:block">
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 bg-gray-50 px-4 py-2 rounded-xl border border-gray-100 shadow-sm">Global Marketplace Status: <span className="text-green-600">Active</span></span>
+             </div>
           </div>
         </div>
 
@@ -248,7 +274,7 @@ export default function Dashboard() {
                         ) : (
                           <div className="space-y-5">
                              {orders.map(order => (
-                               <div key={order.orderId} className="bg-gray-50 border border-gray-100 rounded-[2rem] overflow-hidden hover:border-gray-900 transition-all group shadow-sm">
+                               <div key={order.orderId} onClick={() => setSelectedOrder(order)} className="bg-gray-50 border border-gray-100 rounded-[2rem] overflow-hidden hover:border-gray-900 transition-all group shadow-sm cursor-pointer">
                                  <div className="flex items-center justify-between p-6">
                                     <div>
                                       <p className="text-gray-900 font-black uppercase tracking-widest text-[10px] mb-2">
@@ -299,7 +325,7 @@ export default function Dashboard() {
                                        <button 
                                          onClick={() => handleConvertQuotation(quote.orderId)}
                                          disabled={actionLoading}
-                                         className="text-[10px] font-black uppercase tracking-widest bg-gray-900 hover:bg-black text-white px-8 py-4 rounded-xl transition-all shadow-xl disabled:opacity-50"
+                                         className="text-[10px] font-black uppercase tracking-widest bg-gray-900 hover:bg-black text-white px-8 py-4 rounded-2xl shadow-xl disabled:opacity-50"
                                        >
                                           Authorize Purchase
                                        </button>
@@ -420,6 +446,11 @@ export default function Dashboard() {
                              <span className={`text-[10px] font-black uppercase px-4 py-2 rounded-xl border ${businessProfile.creditStatus === 'Verified' ? 'bg-green-50 text-green-600 border-green-100' : 'bg-red-50 text-red-600 border-red-100'}`}>
                                 {businessProfile.creditStatus || 'Verification Pending'}
                              </span>
+                             {businessProfile.creditStatus === 'Verified' && (
+                               <div className="px-4 py-2 bg-[var(--brand-yellow)]/10 text-gray-900 border border-[var(--brand-yellow)]/20 rounded-xl text-[10px] font-black uppercase flex items-center gap-2">
+                                 <Zap className="w-3 h-3" /> Enterprise Pricing Active
+                               </div>
+                             )}
                              <button className="text-[10px] font-black uppercase tracking-widest bg-gray-900 text-white px-6 py-3 rounded-xl hover:bg-gray-800 transition-all shadow-md">Modify Record</button>
                           </div>
                         </div>
@@ -654,6 +685,84 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
+
+      {/* Procure AI Floating Assistant */}
+      <div className="fixed bottom-10 right-10 z-[60]">
+         <motion.button 
+           whileHover={{ scale: 1.1, rotate: 5 }}
+           whileTap={{ scale: 0.9 }}
+           onClick={() => { setAiAssistantOpen(true); generateAISuggestions(); }}
+           className="w-16 h-16 bg-gray-900 text-[var(--brand-yellow)] rounded-full shadow-[0_20px_60px_rgba(0,0,0,0.3)] flex items-center justify-center border border-white/10 group overflow-hidden relative"
+         >
+            <div className="absolute inset-0 bg-[var(--brand-yellow)] opacity-0 group-hover:opacity-10 transition-opacity" />
+            <Zap className="w-8 h-8 group-hover:animate-pulse" />
+         </motion.button>
+      </div>
+
+      {/* AI Assistant Modal */}
+      <AnimatePresence>
+        {aiAssistantOpen && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/40 backdrop-blur-sm"
+          >
+             <motion.div 
+               initial={{ scale: 0.9, y: 20 }}
+               animate={{ scale: 1, y: 0 }}
+               className="bg-white rounded-[3rem] w-full max-w-xl overflow-hidden shadow-2xl relative border border-gray-100"
+             >
+                <div className="bg-gray-900 p-10 text-white relative">
+                   <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--brand-yellow)]/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+                   <div className="flex justify-between items-center mb-6">
+                      <div className="flex items-center gap-3">
+                         <div className="w-10 h-10 bg-[var(--brand-yellow)] rounded-xl flex items-center justify-center text-gray-900">
+                            <Zap className="w-6 h-6" />
+                         </div>
+                         <div>
+                            <h3 className="text-xl font-black uppercase italic tracking-tighter">Procure AI</h3>
+                            <p className="text-[9px] font-black uppercase tracking-widest text-white/40">Market Intelligence Synth v2.5</p>
+                         </div>
+                      </div>
+                      <button onClick={() => setAiAssistantOpen(false)} className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/10 transition-all">
+                         <Plus className="w-6 h-6 rotate-45" />
+                      </button>
+                   </div>
+                   <p className="text-sm font-medium text-gray-400 leading-relaxed italic">Analyzing your enterprise velocity and global node telemetery for optimized procurement routes.</p>
+                </div>
+
+                <div className="p-10 bg-gray-50/50">
+                   {aiLoading ? (
+                      <div className="py-20 flex flex-col items-center justify-center gap-6">
+                         <div className="w-12 h-12 border-4 border-gray-100 border-t-gray-900 rounded-full animate-spin" />
+                         <p className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">Synthesizing Market Data...</p>
+                      </div>
+                   ) : (
+                      <div className="space-y-6">
+                         {aiSuggestions.map((s, idx) => (
+                            <motion.div 
+                              initial={{ opacity: 0, x: -20 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: idx * 0.1 }}
+                              key={idx} 
+                              className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all group cursor-pointer"
+                            >
+                               <div className="flex items-center justify-between mb-3">
+                                  <h4 className="font-black text-xs uppercase tracking-widest text-gray-900 border-b border-[var(--brand-yellow)] pb-1">{s.title}</h4>
+                                  <ArrowUpRight className="w-3 h-3 text-gray-300 group-hover:text-gray-900 transition-colors" />
+                               </div>
+                               <p className="text-xs text-gray-500 font-medium leading-relaxed italic">{s.desc}</p>
+                            </motion.div>
+                         ))}
+                         <button className="w-full py-5 bg-gray-900 text-white rounded-2xl font-black uppercase tracking-widest text-[10px] hover:shadow-2xl transition-all mt-4">Execute Auto-Optimization</button>
+                      </div>
+                   )}
+                </div>
+             </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Toast Notification */}
       <AnimatePresence>

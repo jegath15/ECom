@@ -86,6 +86,18 @@ namespace ChefSupply.API.Controllers
             }
         }
 
+        [HttpPatch("businesses/{businessId}/verify")]
+        public async Task<IActionResult> VerifyBusiness(Guid businessId)
+        {
+            var business = await _context.Businesses.FindAsync(businessId);
+            if (business == null) return NotFound("Business profile not found.");
+
+            business.CreditStatus = "Verified";
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = $"Business '{business.BusinessName}' has been verified for Enterprise Credit." });
+        }
+
         [HttpGet("status")]
         public IActionResult GetStatus()
         {

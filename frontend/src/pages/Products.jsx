@@ -5,18 +5,19 @@ import API_URL from '../config';
 import { Link, useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 
-const ProductCard = ({ product, onAdd }) => (
+const ProductCard = ({ product, onAdd, isVerified }) => (
   <motion.div 
     layout
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     whileHover={{ y: -8 }}
     transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
-    className="bg-white border border-gray-100 rounded-[2.5rem] overflow-hidden hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] transition-all group flex flex-col h-full"
+    className="bg-white border border-gray-100 rounded-[2.5rem] overflow-hidden hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] transition-all group flex flex-col h-full relative"
   >
-    <div className="h-64 bg-[#f8f9fa] flex items-center justify-center relative overflow-hidden group">
-      <img src={product.imageUrl || `https://placehold.co/400x300/F9FAFB/111827?text=${encodeURIComponent(product.productName)}`} alt={product.productName} className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110 opacity-90" />
+    <div className="h-64 bg-[#f8f9fa] flex items-center justify-center relative overflow-hidden group/img">
+      <img src={product.imageUrl || `https://placehold.co/400x300/F9FAFB/111827?text=${encodeURIComponent(product.productName)}`} alt={product.productName} className="object-cover w-full h-full transition-transform duration-700 group-hover/img:scale-110 opacity-90" />
       
       <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent pointer-events-none" />
       
@@ -27,7 +28,7 @@ const ProductCard = ({ product, onAdd }) => (
       </div>
 
       {/* PROCURE Overlay */}
-      <div className="absolute inset-0 bg-gray-900/60 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
+      <div className="absolute inset-0 bg-gray-900/60 backdrop-blur-sm opacity-0 group-hover/img:opacity-100 transition-all duration-500 flex items-center justify-center">
          <motion.div 
            initial={{ scale: 0.8, opacity: 0 }}
            whileHover={{ scale: 1 }}
@@ -37,7 +38,39 @@ const ProductCard = ({ product, onAdd }) => (
          </motion.div>
       </div>
 
+      {/* SKU Telemetry Hover State */}
+      <div className="absolute inset-x-0 bottom-0 p-6 bg-gray-900/90 backdrop-blur-md translate-y-full group-hover:translate-y-0 transition-transform duration-500 z-10">
+         <div className="grid grid-cols-2 gap-4">
+            <div>
+               <p className="text-[8px] font-black text-white/40 uppercase tracking-widest mb-1">Logistics SLA</p>
+               <p className="text-[10px] font-black text-white uppercase italic">Next-Day Verified</p>
+            </div>
+            <div>
+               <p className="text-[8px] font-black text-white/40 uppercase tracking-widest mb-1">Port of Origin</p>
+               <p className="text-[10px] font-black text-white uppercase italic">IN-MAA Hub</p>
+            </div>
+            <div>
+               <p className="text-[8px] font-black text-white/40 uppercase tracking-widest mb-1">Batch Entropy</p>
+               <p className="text-[10px] font-black text-emerald-400 uppercase italic">High Freshness</p>
+            </div>
+            <div>
+               <p className="text-[8px] font-black text-white/40 uppercase tracking-widest mb-1">Node ID</p>
+               <p className="text-[10px] font-black text-white/60 uppercase italic">#{(product.productId || '0').substring(0,6)}</p>
+            </div>
+         </div>
+      </div>
+
+      {isVerified && (
+        <div className="absolute top-6 left-6 z-20">
+           <div className="bg-emerald-500 text-slate-900 border border-emerald-400 px-4 py-1.5 rounded-xl shadow-xl flex items-center gap-2 animate-bounce">
+              <ShieldCheck className="w-3.5 h-3.5" />
+              <span className="text-[9px] font-black uppercase tracking-widest">Enterprise Active</span>
+           </div>
+        </div>
+      )}
+
     </div>
+/* ... existing content ... */
 
     <div className="p-10 flex flex-col flex-1 relative">
       <div className="flex flex-col flex-1">
@@ -50,31 +83,19 @@ const ProductCard = ({ product, onAdd }) => (
         <p className="text-gray-500 text-xs leading-relaxed italic font-medium mb-8 line-clamp-3">{product.description}</p>
       </div>
       
-      <div className="mb-10 grid grid-cols-2 gap-5">
-         <div className="bg-gray-50/80 rounded-3xl p-7 border border-gray-100 flex flex-col justify-between min-h-[120px]">
-            <span className="text-[10px] text-gray-400 font-black uppercase tracking-widest">Availability</span>
-            <div className={`flex flex-col mt-2 ${product.availableQuantity > 50 ? 'text-gray-900' : 'text-red-600'}`}>
-               <span className="text-2xl font-black leading-none">{product.availableQuantity}</span>
-               <span className="text-[10px] font-bold uppercase tracking-widest mt-1">{product.unit}s</span>
-            </div>
-         </div>
-         <div className="bg-gray-50/80 rounded-3xl p-7 border border-gray-100 flex flex-col justify-between min-h-[120px]">
-            <span className="text-[10px] text-gray-400 font-black uppercase tracking-widest">Delivery</span>
-            <span className="text-sm font-black text-gray-900 leading-tight mt-auto">Next Business Day</span>
-         </div>
-      </div>
+/* ... existing availability/delivery grid ... */
 
       {product.pricingTiers && product.pricingTiers.length > 0 && (
-         <div className="mb-8 space-y-3 bg-gray-900/5 p-5 rounded-[1.5rem] border border-gray-100/50">
+         <div className={`mb-8 space-y-3 p-5 rounded-[1.5rem] border ${isVerified ? 'bg-emerald-50/50 border-emerald-100 ring-4 ring-emerald-500/5' : 'bg-gray-900/5 border-gray-100/50'}`}>
             <div className="flex items-center justify-between border-b border-gray-100 pb-2 mb-1">
-              <span className="text-[10px] text-gray-500 font-black uppercase tracking-widest">Enterprise Tiers</span>
-              <span className="text-[9px] text-[var(--brand-yellow)] font-black uppercase">MOQ ACTIVE</span>
+              <span className="text-[10px] text-gray-500 font-black uppercase tracking-widest">{isVerified ? 'Your Exclusive Tiers' : 'Enterprise Tiers'}</span>
+              <span className={`text-[9px] font-black uppercase ${isVerified ? 'text-emerald-600' : 'text-[var(--brand-yellow)]'}`}>{isVerified ? 'VERIFIED' : 'MOQ ACTIVE'}</span>
             </div>
             {product.pricingTiers.map((tier, idx) => (
                <div key={idx} className="flex justify-between items-center text-[11px]">
-                  <span className="text-gray-600 font-bold">{tier.minQuantity}+ {product.unit}s</span>
-                  <div className="h-px flex-1 mx-4 bg-gray-200 border-dotted border-b opacity-50" />
-                  <span className="text-gray-900 font-black">₹{tier.price.toFixed(2)}</span>
+                  <span className={`${isVerified ? 'text-emerald-900' : 'text-gray-600'} font-bold`}>{tier.minQuantity}+ {product.unit}s</span>
+                  <div className={`h-px flex-1 mx-4 border-dotted border-b opacity-50 ${isVerified ? 'bg-emerald-200' : 'bg-gray-200'}`} />
+                  <span className={`${isVerified ? 'text-emerald-700' : 'text-gray-900'} font-black italic`}>₹{tier.price.toFixed(2)}</span>
                </div>
             ))}
          </div>
@@ -84,13 +105,13 @@ const ProductCard = ({ product, onAdd }) => (
         <div>
           <span className="text-[10px] text-gray-400 font-black uppercase block mb-1">Unit Price (Base)</span>
           <div className="flex items-baseline gap-1">
-            <span className="text-3xl font-black text-gray-900 tracking-tighter">₹{product.basePrice?.toFixed(2) || '0.00'}</span>
+            <span className={`text-3xl font-black tracking-tighter ${isVerified ? 'text-emerald-600' : 'text-gray-900'}`}>₹{product.basePrice?.toFixed(2) || '0.00'}</span>
             <span className="text-xs text-gray-400 font-bold uppercase tracking-widest">INR</span>
           </div>
         </div>
         <button 
           onClick={() => onAdd(product)}
-          className="w-14 h-14 bg-[var(--brand-yellow)] hover:bg-gray-900 hover:text-white rounded-2xl flex items-center justify-center text-gray-900 shadow-[0_10px_30px_rgba(0,0,0,0.1)] transition-all active:scale-95 group/btn"
+          className={`w-14 h-14 rounded-2xl flex items-center justify-center shadow-[0_10px_30px_rgba(0,0,0,0.1)] transition-all active:scale-95 group/btn ${isVerified ? 'bg-emerald-500 text-white hover:bg-slate-900' : 'bg-[var(--brand-yellow)] text-gray-900 hover:bg-gray-900 hover:text-white'}`}
         >
           <Plus className="w-7 h-7 transition-transform duration-300 group-hover/btn:rotate-90" />
         </button>
@@ -104,18 +125,33 @@ export default function Products() {
   const [categories, setCategories] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isVerified, setIsVerified] = useState(false);
   const [searchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState(searchParams.get('search') || '');
   const [volumetricActive, setVolumetricActive] = useState(false);
   
   const { addToCart } = useCart();
+  const { user } = useAuth();
 
   useEffect(() => {
     setLoading(true);
-    // Fetch products and categories in parallel
+    
+    const fetchProfile = async () => {
+      if (user?.userId) {
+        try {
+          const res = await axios.get(`${API_URL}/api/business/${user.userId}`);
+          setIsVerified(res.data.creditStatus === 'Verified');
+        } catch (err) {
+          console.warn('Profile fetch failed', err);
+        }
+      }
+    };
+
+    // Fetch products, categories and profile (if logged in)
     Promise.all([
       axios.get(`${API_URL}/api/product`),
-      axios.get(`${API_URL}/api/product/categories`)
+      axios.get(`${API_URL}/api/product/categories`),
+      fetchProfile()
     ])
     .then(([prodRes, catRes]) => {
        setProducts(prodRes.data);
@@ -127,7 +163,7 @@ export default function Products() {
        console.error('Data synchronization failed', err);
        setLoading(false);
     });
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     let result = products;
@@ -315,7 +351,7 @@ export default function Products() {
                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3 gap-10"
               >
                 {filteredProducts.map((product) => (
-                  <ProductCard key={product.productId} product={product} onAdd={addToCart} />
+                  <ProductCard key={product.productId} product={product} onAdd={addToCart} isVerified={isVerified} />
                 ))}
               </motion.div>
             )}

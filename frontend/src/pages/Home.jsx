@@ -90,44 +90,74 @@ export default function Home() {
     <div className="space-y-16 md:space-y-32 pb-16 md:pb-32 bg-mesh">
       
       {/* Hero Section - Immersive "Cover" Style */}
-      <section className="bg-white rounded-[3rem] mt-8 relative overflow-hidden border border-gray-100 shadow-2xl min-h-[500px] lg:min-h-[600px] flex items-center">
+      <section className="bg-white rounded-[3rem] mt-8 relative overflow-hidden border border-gray-100 shadow-2xl min-h-[500px] lg:min-h-[700px] flex items-center group/hero">
         {/* Deep Context Background Layer */}
         <div className="absolute inset-0 z-0 overflow-hidden">
            {/* Light Mesh Pattern */}
            <div className="absolute inset-0 bg-[#F9FAFB]"></div>
-           <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(#111827 1px, transparent 1px)', backgroundSize: '32px 32px' }}></div>
+           <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23111827\' fill-opacity=\'0.4\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }}></div>
            
            {/* Visual Asset (Chef Illustration) */}
-           <div className="absolute right-0 top-0 bottom-0 w-full lg:w-[60%] z-0">
+           <motion.div 
+             initial={{ scale: 1.1, opacity: 0 }}
+             animate={{ scale: 1, opacity: 1 }}
+             transition={{ duration: 1.5, ease: "easeOut" }}
+             className="absolute right-0 top-0 bottom-0 w-full lg:w-[65%] z-0"
+           >
              <img 
                src="/assets/hero-chef.png" 
                alt="Procurement Background" 
-               className="w-full h-full object-contain lg:object-cover object-right lg:object-center filter opacity-60 lg:opacity-100 lg:translate-x-10"
+               className="w-full h-full object-contain lg:object-cover object-right lg:object-center filter grayscale-[0.2] contrast-[1.1] opacity-60 lg:opacity-100 lg:translate-x-20 transition-transform duration-[3s] group-hover/hero:scale-105"
              />
              {/* Gradient Mask for Text Legibility */}
-             <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent lg:hidden"></div>
-             <div className="hidden lg:block absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-white to-transparent"></div>
-           </div>
+             <div className="absolute inset-0 bg-gradient-to-r from-white via-white/90 to-transparent lg:hidden"></div>
+             <div className="hidden lg:block absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-white via-white to-transparent"></div>
+           </motion.div>
         </div>
         
         {/* Content Overlay */}
         <div className="relative z-10 w-full px-8 lg:px-24 py-16 lg:py-24">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl lg:text-7xl font-black text-[#1F2937] leading-[1.1] mb-6 lg:mb-8 tracking-tighter">
-              Bulk Food & Kitchen Supply for Professional chefs
+          <motion.div 
+            initial={{ x: -100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 1, ease: [0.23, 1, 0.32, 1] }}
+            className="max-w-3xl"
+          >
+            <div className="flex items-center gap-3 mb-8">
+               <div className="px-4 py-1.5 bg-gray-900 rounded-full flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-[var(--brand-yellow)] animate-ping" />
+                  <span className="text-[9px] font-black text-white uppercase tracking-[0.3em]">v2.5 Enterprise Mesh Active</span>
+               </div>
+            </div>
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-[#1F2937] leading-[0.85] mb-8 tracking-tighter uppercase italic">
+              Elite <span className="text-[var(--brand-yellow)]">Kitchen</span><br/>Procurement
             </h1>
-            <p className="text-[#6B7280] text-base md:text-lg mb-10 leading-relaxed max-w-xl font-medium">
-              Streamlining procurement for the modern hospitality industry. Access wholesale pricing, manage multi-location logistics, and secure flexible Net-30 credit terms in one unified startup ecosystem.
+            <p className="text-[#6B7280] text-lg md:text-xl mb-12 leading-relaxed max-w-xl font-medium italic">
+              Synchronizing global supply nodes for high-velocity hospitality operations. Wholesale transparency, verified credit, and industrial scale—delivered.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 lg:gap-6">
-              <Link to="/products" className="bg-[#FBBF24] hover:bg-[#F59E0B] text-white px-10 py-5 rounded-lg text-sm font-black uppercase tracking-widest transition-all shadow-lg hover:shadow-xl active:scale-95 text-center">
-                Browse Products
+            <div className="flex flex-col sm:flex-row gap-6">
+              <Link to="/products" className="bg-[#1F2937] hover:bg-black text-white px-12 py-6 rounded-2xl text-xs font-black uppercase tracking-[0.3em] transition-all shadow-2xl hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] hover:-translate-y-1 active:scale-95 text-center flex items-center justify-center gap-3">
+                Secure Supply <ArrowRight className="w-4 h-4 text-[var(--brand-yellow)]" />
               </Link>
-              <Link to="/bulk-order" className="bg-[#4B5563] hover:bg-[#374151] text-white px-10 py-5 rounded-lg text-sm font-black uppercase tracking-widest transition-all shadow-lg hover:shadow-xl active:scale-95 text-center">
-                Request Quote
+              <Link to="/bulk-order" className="bg-white border-2 border-gray-100 hover:border-gray-900 text-gray-900 px-12 py-6 rounded-2xl text-xs font-black uppercase tracking-[0.3em] transition-all shadow-lg hover:-translate-y-1 active:scale-95 text-center">
+                RFQ Protocol
               </Link>
             </div>
-          </div>
+            
+            <div className="mt-20 flex gap-12 items-center">
+               <div className="flex -space-x-4">
+                  {[1,2,3,4].map(i => (
+                    <div key={i} className="w-12 h-12 rounded-full bg-gray-100 border-4 border-white flex items-center justify-center overflow-hidden">
+                       <img src={`https://i.pravatar.cc/100?u=${i}`} alt="Partner" />
+                    </div>
+                  ))}
+               </div>
+               <div>
+                  <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">Trusted By Global Chains</p>
+                  <p className="text-sm font-black text-gray-900 italic tracking-tight">412+ Verified Enterprise Nodes</p>
+               </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -238,13 +268,39 @@ export default function Home() {
       </section>
 
       {/* Why Choose Us */}
-      <section className="space-y-12 text-center">
-         <h2 className="text-4xl font-black text-gray-900">Why Choose Us</h2>
+      <section className="space-y-12">
+         <div className="text-center">
+            <h2 className="text-4xl md:text-6xl font-black text-gray-900 tracking-tighter mb-4 uppercase italic">Industrial Excellence</h2>
+            <p className="text-gray-400 font-bold text-xs md:text-sm uppercase tracking-[0.4em]">Proprietary B2B Infrastructure</p>
+         </div>
          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <FeatureCard icon={Truck} title="Fast & Free Shipping" />
             <FeatureCard icon={RefreshCw} title="Hassie Free Returns" />
             <FeatureCard icon={HeadphonesIcon} title="24/7 Support" />
             <FeatureCard icon={BarChart} title="Bulk Discounts" />
+         </div>
+
+         {/* Enterprise Metrics Section */}
+         <div className="mt-20 bg-gray-50 border border-gray-100 rounded-[3rem] p-12 lg:p-20 grid grid-cols-1 md:grid-cols-3 gap-16 relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-64 h-64 bg-gray-200/40 rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2" />
+            
+            <div className="relative z-10 flex flex-col items-center text-center">
+               <span className="text-5xl lg:text-7xl font-black text-gray-900 tracking-tighter mb-2">99.8%</span>
+               <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4">Uptime Protocol</p>
+               <div className="text-xs text-gray-500 font-medium leading-relaxed italic">Synchronized inventory across global distribution nodes with millisecond accuracy.</div>
+            </div>
+
+            <div className="relative z-10 flex flex-col items-center text-center">
+               <span className="text-5xl lg:text-7xl font-black text-gray-900 tracking-tighter mb-2">₹14M+</span>
+               <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4">Monthly Velocity</p>
+               <div className="text-xs text-gray-500 font-medium leading-relaxed italic">Enterprise-scale transaction volume handled by our proprietary ledger system.</div>
+            </div>
+
+            <div className="relative z-10 flex flex-col items-center text-center">
+               <span className="text-5xl lg:text-7xl font-black text-gray-900 tracking-tighter mb-2">&lt;24Hr</span>
+               <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4">SLA Delivery</p>
+               <div className="text-xs text-gray-500 font-medium leading-relaxed italic">Next-business-day fulfillment guaranteed for all verified enterprise partners.</div>
+            </div>
          </div>
       </section>
 

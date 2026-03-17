@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ShoppingCart, LogOut, LayoutDashboard, UtensilsCrossed, ShieldAlert, Menu, X, ChevronRight } from 'lucide-react';
+import { ShoppingCart, LogOut, LayoutDashboard, UtensilsCrossed, ShieldAlert, Menu, X, ChevronRight, Zap, Package } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
@@ -178,6 +178,40 @@ export default function Header() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Global Supply Pulse Ticker */}
+      <div className="bg-gray-900 overflow-hidden py-2 relative border-t border-white/5">
+        <motion.div 
+          animate={{ x: [0, -2000] }}
+          transition={{ repeat: Infinity, duration: 40, ease: "linear" }}
+          className="flex whitespace-nowrap gap-20 items-center"
+        >
+          {[...Array(2)].map((_, i) => (
+            <div key={i} className="flex gap-20 items-center">
+              <div className="flex items-center gap-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                <span className="text-[9px] font-black uppercase tracking-[0.2em] text-white/40">Market Node: <span className="text-white">Active</span></span>
+              </div>
+              <div className="flex items-center gap-3">
+                <Zap className="w-3 h-3 text-[var(--brand-yellow)]" />
+                <span className="text-[9px] font-black uppercase tracking-[0.2em] text-white/40">Procurement Velocity: <span className="text-white">412 Units/Hr</span></span>
+              </div>
+              <div className="flex items-center gap-3">
+                <Package className="w-3 h-3 text-white/60" />
+                <span className="text-[9px] font-black uppercase tracking-[0.2em] text-white/40">Global SKUs Sycned: <span className="text-white">12,402</span></span>
+              </div>
+              <div className="flex items-center gap-3">
+                <ShieldAlert className="w-3 h-3 text-emerald-400" />
+                <span className="text-[9px] font-black uppercase tracking-[0.2em] text-white/40">Verification Protocol: <span className="text-white">v2.5 SLA</span></span>
+              </div>
+              <div className="flex items-center gap-3">
+                <UtensilsCrossed className="w-3 h-3 text-[var(--brand-yellow)]" />
+                <span className="text-[9px] font-black uppercase tracking-[0.2em] text-white/40">Cold Chain Status: <span className="text-white">Optimal</span></span>
+              </div>
+            </div>
+          ))}
+        </motion.div>
+      </div>
     </motion.header>
   );
 }

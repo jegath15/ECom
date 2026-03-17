@@ -40,6 +40,7 @@ public class OrderService : IOrderService
             Items = o.OrderItems.Select(i => new OrderItemResponseDto
             {
                 ProductId = i.ProductId ?? Guid.Empty,
+                ProductName = i.Product != null ? i.Product.ProductName : "Unknown Product",
                 Quantity = i.Quantity ?? 0,
                 Price = i.Price ?? 0,
                 BidPrice = i.BidPrice,
@@ -160,6 +161,7 @@ public class OrderService : IOrderService
                 Items = o.OrderItems.Select(i => new OrderItemResponseDto
                 {
                     ProductId = i.ProductId ?? Guid.Empty,
+                    ProductName = i.Product != null ? i.Product.ProductName : "Unknown Product",
                     Quantity = i.Quantity ?? 0,
                     Price = i.Price ?? 0,
                     BidPrice = i.BidPrice,
