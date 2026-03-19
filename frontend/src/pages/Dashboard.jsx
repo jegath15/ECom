@@ -686,18 +686,15 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Procure AI Floating Assistant */}
-      <div className="fixed bottom-10 right-10 z-[60]">
-         <motion.button 
-           whileHover={{ scale: 1.1, rotate: 5 }}
-           whileTap={{ scale: 0.9 }}
-           onClick={() => { setAiAssistantOpen(true); generateAISuggestions(); }}
-           className="w-16 h-16 bg-gray-900 text-[var(--brand-yellow)] rounded-full shadow-[0_20px_60px_rgba(0,0,0,0.3)] flex items-center justify-center border border-white/10 group overflow-hidden relative"
-         >
-            <div className="absolute inset-0 bg-[var(--brand-yellow)] opacity-0 group-hover:opacity-10 transition-opacity" />
-            <Zap className="w-8 h-8 group-hover:animate-pulse" />
-         </motion.button>
-      </div>
+        {/* Procure AI Assistant - Floating Elite Access */}
+        <motion.button
+          whileHover={{ scale: 1.05, y: -5 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => setAiAssistantOpen(true)}
+          className="fixed bottom-12 right-12 w-20 h-20 premium-gradient rounded-full shadow-[0_20px_60px_-15px_rgba(242,201,76,0.5)] flex items-center justify-center text-white z-40 border-4 border-white/20 animate-pulse-glow"
+        >
+          <Zap className="w-10 h-10" />
+        </motion.button>
 
       {/* AI Assistant Modal */}
       <AnimatePresence>

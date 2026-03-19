@@ -174,13 +174,33 @@ export default function Header() {
                   </Link>
                 )}
               </div>
+
+              {/* Node Information Section (Elite B2B) */}
+              <div className="pt-8 border-t border-gray-100">
+                <div className="bg-gray-50 rounded-2xl p-6 space-y-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                    <span className="text-[10px] font-black text-gray-900 uppercase tracking-widest">Infra Node: Active</span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-1">
+                      <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Reliability SLA</p>
+                      <p className="text-sm font-black text-gray-900 tracking-tighter">99.98%</p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Node Latency</p>
+                      <p className="text-sm font-black text-gray-900 tracking-tighter">24ms</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
       {/* Global Supply Pulse Ticker */}
-      <div className="bg-gray-900 overflow-hidden py-2 relative border-t border-white/5">
+      <div className="bg-gray-900/95 backdrop-blur-md overflow-hidden py-2 relative border-t border-white/5">
         <motion.div 
           animate={{ x: [0, -2000] }}
           transition={{ repeat: Infinity, duration: 40, ease: "linear" }}

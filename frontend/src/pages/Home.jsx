@@ -95,7 +95,7 @@ export default function Home() {
         <div className="absolute inset-0 z-0 overflow-hidden">
            {/* Light Mesh Pattern */}
            <div className="absolute inset-0 bg-[#F9FAFB]"></div>
-           <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23111827\' fill-opacity=\'0.4\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }}></div>
+           <div className="absolute inset-0 opacity-[0.05] animate-grid-flow" style={{ backgroundImage: 'radial-gradient(#111827 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
            
            {/* Visual Asset (Chef Illustration) */}
            <motion.div 
@@ -110,7 +110,7 @@ export default function Home() {
                className="w-full h-full object-contain lg:object-cover object-right lg:object-center filter grayscale-[0.2] contrast-[1.1] opacity-60 lg:opacity-100 lg:translate-x-20 transition-transform duration-[3s] group-hover/hero:scale-105"
              />
              {/* Gradient Mask for Text Legibility */}
-             <div className="absolute inset-0 bg-gradient-to-r from-white via-white/90 to-transparent lg:hidden"></div>
+             <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-transparent lg:hidden"></div>
              <div className="hidden lg:block absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-white via-white to-transparent"></div>
            </motion.div>
         </div>
@@ -124,12 +124,12 @@ export default function Home() {
             className="max-w-3xl"
           >
             <div className="flex items-center gap-3 mb-8">
-               <div className="px-4 py-1.5 bg-gray-900 rounded-full flex items-center gap-2">
+               <div className="px-5 py-2 bg-gray-900/90 backdrop-blur-md rounded-full flex items-center gap-3 border border-white/10 shadow-2xl">
                   <div className="w-2 h-2 rounded-full bg-[var(--brand-yellow)] animate-ping" />
-                  <span className="text-[9px] font-black text-white uppercase tracking-[0.3em]">v2.5 Enterprise Mesh Active</span>
+                  <span className="text-[10px] font-black text-white uppercase tracking-[0.4em]">v2.5 Intelligence Layer Active</span>
                </div>
             </div>
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-[#1F2937] leading-[0.85] mb-8 tracking-tighter uppercase italic">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-[#1F2937] leading-[0.85] mb-8 tracking-tighter uppercase italic text-shimmer">
               Elite <span className="text-[var(--brand-yellow)]">Kitchen</span><br/>Procurement
             </h1>
             <p className="text-[#6B7280] text-lg md:text-xl mb-12 leading-relaxed max-w-xl font-medium italic">
