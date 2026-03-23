@@ -22,8 +22,8 @@ export default function Dashboard() {
   const [currentBid, setCurrentBid] = useState(null);
   const [toast, setToast] = useState(null);
   const [aiAssistantOpen, setAiAssistantOpen] = useState(false);
-  const [aiLoading, setAiLoading] = useState(false);
-  const [aiSuggestions, setAiSuggestions] = useState([]);
+  const [aiLoading] = useState(false);
+  const [aiSuggestions] = useState([]);
 
   const showToast = (message, type = 'success') => {
     setToast({ message, type });
