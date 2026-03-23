@@ -5,6 +5,7 @@ import { CartProvider } from './context/CartContext';
 import MainLayout from './layouts/MainLayout';
 import ProtectedRoute from './components/ProtectedRoute';
 import PageWrapper from './components/PageWrapper';
+import GlobalAIBot from './components/GlobalAIBot';
 import Home from './pages/Home';
 import Products from './pages/Products';
 import Login from './pages/Login';
@@ -42,6 +43,7 @@ function App() {
               <Route path="/cart" element={<PageWrapper><Cart /></PageWrapper>} />
             </Route>
           </Routes>
+          <GlobalAIBot />
         </Router>
       </CartProvider>
     </AuthProvider>

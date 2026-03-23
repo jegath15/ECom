@@ -21,9 +21,6 @@ export default function Dashboard() {
   const [actionLoading, setActionLoading] = useState(false);
   const [currentBid, setCurrentBid] = useState(null);
   const [toast, setToast] = useState(null);
-  const [aiAssistantOpen, setAiAssistantOpen] = useState(false);
-  const [aiLoading] = useState(false);
-  const [aiSuggestions] = useState([]);
 
   const showToast = (message, type = 'success') => {
     setToast({ message, type });
@@ -672,80 +669,6 @@ export default function Dashboard() {
         </div>
       </div>
 
-        {/* Procure AI Assistant - Floating Elite Access */}
-        <motion.button
-          whileHover={{ scale: 1.05, y: -5 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => setAiAssistantOpen(true)}
-          className="fixed bottom-12 right-12 w-20 h-20 premium-gradient rounded-full shadow-[0_20px_60px_-15px_rgba(242,201,76,0.5)] flex items-center justify-center text-white z-40 border-4 border-white/20 animate-pulse-glow"
-        >
-          <Zap className="w-10 h-10" />
-        </motion.button>
-
-      {/* AI Assistant Modal */}
-      <AnimatePresence>
-        {aiAssistantOpen && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/40 backdrop-blur-sm"
-          >
-             <motion.div 
-               initial={{ scale: 0.9, y: 20 }}
-               animate={{ scale: 1, y: 0 }}
-               className="bg-white rounded-[3rem] w-full max-w-xl overflow-hidden shadow-2xl relative border border-gray-100"
-             >
-                <div className="bg-gray-900 p-10 text-white relative">
-                   <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--brand-yellow)]/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-                   <div className="flex justify-between items-center mb-6">
-                      <div className="flex items-center gap-3">
-                         <div className="w-10 h-10 bg-[var(--brand-yellow)] rounded-xl flex items-center justify-center text-gray-900">
-                            <Zap className="w-6 h-6" />
-                         </div>
-                         <div>
-                            <h3 className="text-xl font-black uppercase italic tracking-tighter">Procure AI</h3>
-                            <p className="text-[9px] font-black uppercase tracking-widest text-white/40">Market Intelligence Synth v2.5</p>
-                         </div>
-                      </div>
-                      <button onClick={() => setAiAssistantOpen(false)} className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/10 transition-all">
-                         <Plus className="w-6 h-6 rotate-45" />
-                      </button>
-                   </div>
-                   <p className="text-sm font-medium text-gray-400 leading-relaxed italic">Analyzing your enterprise velocity and global node telemetery for optimized procurement routes.</p>
-                </div>
-
-                <div className="p-10 bg-gray-50/50">
-                   {aiLoading ? (
-                      <div className="py-20 flex flex-col items-center justify-center gap-6">
-                         <div className="w-12 h-12 border-4 border-gray-100 border-t-gray-900 rounded-full animate-spin" />
-                         <p className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">Synthesizing Market Data...</p>
-                      </div>
-                   ) : (
-                      <div className="space-y-6">
-                         {aiSuggestions.map((s, idx) => (
-                            <motion.div 
-                              initial={{ opacity: 0, x: -20 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: idx * 0.1 }}
-                              key={idx} 
-                              className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all group cursor-pointer"
-                            >
-                               <div className="flex items-center justify-between mb-3">
-                                  <h4 className="font-black text-xs uppercase tracking-widest text-gray-900 border-b border-[var(--brand-yellow)] pb-1">{s.title}</h4>
-                                  <ArrowUpRight className="w-3 h-3 text-gray-300 group-hover:text-gray-900 transition-colors" />
-                               </div>
-                               <p className="text-xs text-gray-500 font-medium leading-relaxed italic">{s.desc}</p>
-                            </motion.div>
-                         ))}
-                         <button className="w-full py-5 bg-gray-900 text-white rounded-2xl font-black uppercase tracking-widest text-[10px] hover:shadow-2xl transition-all mt-4">Execute Auto-Optimization</button>
-                      </div>
-                   )}
-                </div>
-             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       {/* Toast Notification */}
       <AnimatePresence>
