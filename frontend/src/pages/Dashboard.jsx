@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight, Clock, UserPlus, Building2, FileKey2, CheckCircle2, AlertCircle, Plus, Zap, ArrowRight, ShieldCheck, Package } from 'lucide-react';
+import { ArrowUpRight, Clock, UserPlus, Building2, FileKey2, CheckCircle2, AlertCircle, Plus, Zap } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } from 'recharts';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
@@ -24,7 +24,6 @@ export default function Dashboard() {
   const [aiAssistantOpen, setAiAssistantOpen] = useState(false);
   const [aiLoading, setAiLoading] = useState(false);
   const [aiSuggestions, setAiSuggestions] = useState([]);
-  const [selectedOrder, setSelectedOrder] = useState(null);
 
   const showToast = (message, type = 'success') => {
     setToast({ message, type });
@@ -144,19 +143,6 @@ export default function Dashboard() {
     }
   };
 
-  const generateAISuggestions = () => {
-    setAiLoading(true);
-    // Simulated AI Intelligence Pulse
-    setTimeout(() => {
-      const suggestions = [
-        { title: "Inventory Optimization", desc: "Based on your 14M velocity, we recommend restocking 'Pantry Supplies' 2 days earlier to avoid node latency." },
-        { title: "Tier 3 Opportunity", desc: "Increase 'Disposables' volume by 12% to unlock Tier 3 Wholesaling (save ₹4,200/mo)." },
-        { title: "Risk Alert", desc: "Port IN-MAA reports slight congestion. Route next batch through Port IN-BOM for optimal delivery." }
-      ];
-      setAiSuggestions(suggestions);
-      setAiLoading(false);
-    }, 2000);
-  };
 
   return (
     <>
@@ -274,7 +260,7 @@ export default function Dashboard() {
                         ) : (
                           <div className="space-y-5">
                              {orders.map(order => (
-                               <div key={order.orderId} onClick={() => setSelectedOrder(order)} className="bg-gray-50 border border-gray-100 rounded-[2rem] overflow-hidden hover:border-gray-900 transition-all group shadow-sm cursor-pointer">
+                               <div key={order.orderId} className="bg-gray-50 border border-gray-100 rounded-[2rem] overflow-hidden hover:border-gray-900 transition-all group shadow-sm cursor-pointer">
                                  <div className="flex items-center justify-between p-6">
                                     <div>
                                       <p className="text-gray-900 font-black uppercase tracking-widest text-[10px] mb-2">

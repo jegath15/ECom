@@ -70,7 +70,7 @@ const ProductCard = ({ product, onAdd, isVerified }) => (
       )}
 
     </div>
-/* ... existing content ... */
+    {/* ... existing content ... */}
 
     <div className="p-10 flex flex-col flex-1 relative">
       <div className="flex flex-col flex-1">
@@ -83,7 +83,7 @@ const ProductCard = ({ product, onAdd, isVerified }) => (
         <p className="text-gray-500 text-xs leading-relaxed italic font-medium mb-8 line-clamp-3">{product.description}</p>
       </div>
       
-/* ... existing availability/delivery grid ... */
+      {/* ... existing availability/delivery grid ... */}
 
       {product.pricingTiers && product.pricingTiers.length > 0 && (
          <div className={`mb-8 space-y-3 p-5 rounded-[1.5rem] border ${isVerified ? 'bg-emerald-50/50 border-emerald-100 ring-4 ring-emerald-500/5' : 'bg-gray-900/5 border-gray-100/50'}`}>
