@@ -83,24 +83,24 @@ export default function GlobalAIBot() {
               initial={{ scale: 0.9, y: 50, x: 20 }}
               animate={{ scale: 1, y: 0, x: 0 }}
               exit={{ scale: 0.9, y: 50, x: 20 }}
-              className="bg-white rounded-[2.5rem] w-full max-w-lg h-[600px] flex flex-col overflow-hidden shadow-2xl relative border border-gray-100 mb-20 sm:mb-0"
+              className="bg-white rounded-[2rem] w-full max-w-lg h-[600px] flex flex-col overflow-hidden shadow-2xl relative border border-gray-100 mb-20 sm:mb-0"
               onClick={(e) => e.stopPropagation()}
             >
               {/* HUD Header */}
-              <div className="bg-gray-900 p-6 text-white relative flex-shrink-0">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--brand-yellow)]/10 rounded-full blur-[60px] -translate-y-1/2 translate-x-1/2" />
+              <div className="bg-gray-950 p-6 text-white relative flex-shrink-0 border-b border-white/5">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--brand-yellow)]/5 rounded-full blur-[60px] -translate-y-1/2 translate-x-1/2" />
                 <div className="flex justify-between items-center mb-4">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 bg-[var(--brand-yellow)] rounded-xl flex items-center justify-center text-gray-900 shadow-lg shadow-[var(--brand-yellow)]/20">
                       <Terminal className="w-5 h-5" />
                     </div>
                     <div>
-                      <h3 className="text-base font-black uppercase italic tracking-tighter">PROCURE AI <span className="text-[10px] text-[var(--brand-yellow)] not-italic ml-2">CHAT BOT V3.0</span></h3>
-                      <p className="text-[9px] font-black uppercase tracking-[0.2em] text-white/40">Market Control Interface Active</p>
+                      <h3 className="text-sm font-bold tracking-tight">Procure AI <span className="text-[10px] text-[var(--brand-yellow)]/80 font-medium ml-2 uppercase tracking-widest">v3.1 Elite</span></h3>
+                      <p className="text-[9px] font-medium uppercase tracking-[0.1em] text-white/40">Market Data & Logistics Node</p>
                     </div>
                   </div>
                   <button onClick={() => setIsOpen(false)} className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/10 transition-all">
-                    <Plus className="w-5 h-5 rotate-45" />
+                    <Plus className="w-5 h-5 rotate-45 text-white/60" />
                   </button>
                 </div>
                 <div className="flex gap-2">
@@ -108,7 +108,7 @@ export default function GlobalAIBot() {
                       <button 
                          key={idx}
                          onClick={() => handleSendMessage(action.query)}
-                         className="flex items-center gap-1.5 px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-all text-[9px] font-bold uppercase tracking-widest text-white/60 hover:text-[var(--brand-yellow)] hover:border-[var(--brand-yellow)]/30"
+                         className="flex items-center gap-1.5 px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-all text-[9px] font-semibold uppercase tracking-wider text-white/70 hover:text-[var(--brand-yellow)] hover:border-[var(--brand-yellow)]/40"
                       >
                          {action.icon}
                          {action.label}
@@ -120,21 +120,26 @@ export default function GlobalAIBot() {
               {/* Chat Area */}
               <div 
                 ref={scrollRef}
-                className="flex-grow overflow-y-auto p-6 space-y-4 bg-gray-50/50 scroll-smooth"
+                className="flex-grow overflow-y-auto p-6 space-y-5 bg-slate-50 scroll-smooth"
               >
                  {messages.map((msg, idx) => (
                     <motion.div
-                       initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                       animate={{ opacity: 1, y: 0, scale: 1 }}
+                       initial={{ opacity: 0, y: 10 }}
+                       animate={{ opacity: 1, y: 0 }}
                        key={idx}
                        className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                     >
-                       <div className={`max-w-[85%] p-4 rounded-2xl text-xs font-medium leading-relaxed shadow-sm ${
+                       <div className={`max-w-[85%] p-4 rounded-2xl text-[13px] leading-relaxed shadow-sm ${
                           msg.role === 'user' 
-                          ? 'bg-gray-900 text-white rounded-tr-none' 
-                          : 'bg-white border border-gray-100 text-gray-700 italic rounded-tl-none'
+                          ? 'bg-gray-900 text-white font-medium rounded-tr-none' 
+                          : 'bg-white border border-slate-200 text-slate-700 font-medium rounded-tl-none ring-1 ring-slate-100'
                        }`}>
-                          {msg.role === 'assistant' && <div className="text-[8px] font-black uppercase tracking-widest text-[var(--brand-yellow)] mb-1">Incoming Transmission:</div>}
+                          {msg.role === 'assistant' && (
+                            <div className="flex items-center gap-2 mb-2">
+                               <div className="w-1.5 h-1.5 rounded-full bg-[var(--brand-yellow)]" />
+                               <span className="text-[9px] font-bold uppercase tracking-widest text-slate-400">AI Data Node</span>
+                            </div>
+                          )}
                           {msg.content}
                        </div>
                     </motion.div>
@@ -142,17 +147,17 @@ export default function GlobalAIBot() {
                  
                  {isTyping && (
                     <div className="flex justify-start">
-                       <div className="bg-white border border-gray-100 p-4 rounded-2xl rounded-tl-none flex gap-1">
-                          <span className="w-1.5 h-1.5 bg-gray-300 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                          <span className="w-1.5 h-1.5 bg-gray-300 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                          <span className="w-1.5 h-1.5 bg-gray-300 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                       <div className="bg-white border border-slate-200 p-4 rounded-2xl rounded-tl-none flex gap-1 shadow-sm">
+                          <span className="w-1.5 h-1.5 bg-slate-300 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                          <span className="w-1.5 h-1.5 bg-slate-300 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                          <span className="w-1.5 h-1.5 bg-slate-300 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
                        </div>
                     </div>
                  )}
               </div>
 
               {/* Input Bar */}
-              <div className="p-6 bg-white border-t border-gray-100 flex-shrink-0">
+              <div className="p-5 bg-white border-t border-slate-100 flex-shrink-0">
                  <form 
                     onSubmit={(e) => { e.preventDefault(); handleSendMessage(); }}
                     className="relative flex items-center"
@@ -161,25 +166,25 @@ export default function GlobalAIBot() {
                        type="text"
                        value={inputValue}
                        onChange={(e) => setInputValue(e.target.value)}
-                       placeholder="Enter Intelligence Query..."
-                       className="w-full pl-6 pr-14 py-4 bg-gray-100 rounded-2xl text-[11px] font-bold focus:outline-none focus:ring-2 focus:ring-gray-900 transition-all"
+                       placeholder="Ask about inventory, shipping, or market tiers..."
+                       className="w-full pl-5 pr-14 py-3.5 bg-slate-100 rounded-xl text-sm font-medium text-slate-900 border border-transparent focus:bg-white focus:border-slate-300 focus:outline-none transition-all placeholder:text-slate-400"
                     />
                     <button 
                        type="submit"
-                       className="absolute right-2 w-10 h-10 bg-gray-900 text-white rounded-xl flex items-center justify-center hover:bg-black transition-all shadow-lg shadow-gray-900/20"
+                       className="absolute right-1.5 w-10 h-10 bg-gray-900 text-white rounded-lg flex items-center justify-center hover:bg-black transition-all shadow-md active:scale-95"
                     >
                        <Send className="w-4 h-4" />
                     </button>
                  </form>
-                 <div className="mt-3 flex items-center justify-center gap-4">
-                    <div className="flex items-center gap-1">
-                       <Globe className="w-2.5 h-2.5 text-emerald-500" />
-                       <span className="text-[8px] font-black uppercase tracking-widest text-gray-400">Satellite Sync Active</span>
+                 <div className="mt-4 flex items-center justify-center gap-5 opacity-40">
+                    <div className="flex items-center gap-1.5">
+                       <Globe className="w-3 h-3 text-slate-600" />
+                       <span className="text-[9px] font-semibold uppercase tracking-widest text-slate-600">Global Sync</span>
                     </div>
-                    <div className="text-[8px] font-black uppercase tracking-widest text-gray-400">|</div>
-                    <div className="flex items-center gap-1">
-                       <MessageSquare className="w-2.5 h-2.5 text-blue-500" />
-                       <span className="text-[8px] font-black uppercase tracking-widest text-gray-400">Secure Protocol v3.0</span>
+                    <div className="w-1 h-1 bg-slate-300 rounded-full" />
+                    <div className="flex items-center gap-1.5">
+                       <ShieldCheck className="w-3 h-3 text-slate-600" />
+                       <span className="text-[9px] font-semibold uppercase tracking-widest text-slate-600">Encrypted</span>
                     </div>
                  </div>
               </div>
