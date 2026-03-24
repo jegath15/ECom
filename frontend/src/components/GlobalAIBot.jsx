@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Zap, Plus, ShieldCheck, Terminal, Cpu, Send, MessageSquare, BarChart3, Globe } from 'lucide-react';
+import { Zap, Plus, ShieldCheck, Terminal, Cpu, Send, BarChart3, Globe } from 'lucide-react';
 
 export default function GlobalAIBot() {
   const [isOpen, setIsOpen] = useState(false);
